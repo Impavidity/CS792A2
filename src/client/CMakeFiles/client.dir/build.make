@@ -105,9 +105,105 @@ src/client/CMakeFiles/client.dir/RPCClient.cpp.o.provides: src/client/CMakeFiles
 src/client/CMakeFiles/client.dir/RPCClient.cpp.o.provides.build: src/client/CMakeFiles/client.dir/RPCClient.cpp.o
 
 
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/client/CMakeFiles/client.dir/flags.make
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/client/VFSClient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/client/CMakeFiles/client.dir/VFSClient.cpp.o"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/VFSClient.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.cpp
+
+src/client/CMakeFiles/client.dir/VFSClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client.dir/VFSClient.cpp.i"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.cpp > CMakeFiles/client.dir/VFSClient.cpp.i
+
+src/client/CMakeFiles/client.dir/VFSClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client.dir/VFSClient.cpp.s"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.cpp -o CMakeFiles/client.dir/VFSClient.cpp.s
+
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o.requires:
+
+.PHONY : src/client/CMakeFiles/client.dir/VFSClient.cpp.o.requires
+
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o.provides: src/client/CMakeFiles/client.dir/VFSClient.cpp.o.requires
+	$(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VFSClient.cpp.o.provides.build
+.PHONY : src/client/CMakeFiles/client.dir/VFSClient.cpp.o.provides
+
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o.provides.build: src/client/CMakeFiles/client.dir/VFSClient.cpp.o
+
+
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.o: src/client/CMakeFiles/client.dir/flags.make
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.o: src/client/VNodeClient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/client/CMakeFiles/client.dir/VNodeClient.cpp.o"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/VNodeClient.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.cpp
+
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client.dir/VNodeClient.cpp.i"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.cpp > CMakeFiles/client.dir/VNodeClient.cpp.i
+
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client.dir/VNodeClient.cpp.s"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.cpp -o CMakeFiles/client.dir/VNodeClient.cpp.s
+
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.requires:
+
+.PHONY : src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.requires
+
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.provides: src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.requires
+	$(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.provides.build
+.PHONY : src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.provides
+
+src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.provides.build: src/client/CMakeFiles/client.dir/VNodeClient.cpp.o
+
+
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o: src/client/CMakeFiles/client.dir/flags.make
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o: src/common/WriteRecord.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/__/common/WriteRecord.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.cpp
+
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client.dir/__/common/WriteRecord.cpp.i"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.cpp > CMakeFiles/client.dir/__/common/WriteRecord.cpp.i
+
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client.dir/__/common/WriteRecord.cpp.s"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.cpp -o CMakeFiles/client.dir/__/common/WriteRecord.cpp.s
+
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.requires:
+
+.PHONY : src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.requires
+
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.provides: src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.requires
+	$(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.provides.build
+.PHONY : src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.provides
+
+src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.provides.build: src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o
+
+
+src/client/CMakeFiles/client.dir/CacheClient.cpp.o: src/client/CMakeFiles/client.dir/flags.make
+src/client/CMakeFiles/client.dir/CacheClient.cpp.o: src/client/CacheClient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/client/CMakeFiles/client.dir/CacheClient.cpp.o"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/CacheClient.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/client/CacheClient.cpp
+
+src/client/CMakeFiles/client.dir/CacheClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/client.dir/CacheClient.cpp.i"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/client/CacheClient.cpp > CMakeFiles/client.dir/CacheClient.cpp.i
+
+src/client/CMakeFiles/client.dir/CacheClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/client.dir/CacheClient.cpp.s"
+	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/client/CacheClient.cpp -o CMakeFiles/client.dir/CacheClient.cpp.s
+
+src/client/CMakeFiles/client.dir/CacheClient.cpp.o.requires:
+
+.PHONY : src/client/CMakeFiles/client.dir/CacheClient.cpp.o.requires
+
+src/client/CMakeFiles/client.dir/CacheClient.cpp.o.provides: src/client/CMakeFiles/client.dir/CacheClient.cpp.o.requires
+	$(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/CacheClient.cpp.o.provides.build
+.PHONY : src/client/CMakeFiles/client.dir/CacheClient.cpp.o.provides
+
+src/client/CMakeFiles/client.dir/CacheClient.cpp.o.provides.build: src/client/CMakeFiles/client.dir/CacheClient.cpp.o
+
+
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o: src/client/CMakeFiles/client.dir/flags.make
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o: src/rpc/gen-cpp/NFS_constants.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
 	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_constants.cpp
 
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.i: cmake_force
@@ -131,7 +227,7 @@ src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o.provides.bui
 
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o: src/client/CMakeFiles/client.dir/flags.make
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o: src/rpc/gen-cpp/NFS_types.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
 	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_types.cpp
 
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.i: cmake_force
@@ -155,7 +251,7 @@ src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o.provides.build: 
 
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o: src/client/CMakeFiles/client.dir/flags.make
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o: src/rpc/gen-cpp/NFS.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o"
 	cd /home/shipeng/Documents/Code/cs798a2/src/client && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS.cpp
 
 src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.i: cmake_force
@@ -181,6 +277,10 @@ src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o.provides.build: src/cl
 client_OBJECTS = \
 "CMakeFiles/client.dir/Client.cpp.o" \
 "CMakeFiles/client.dir/RPCClient.cpp.o" \
+"CMakeFiles/client.dir/VFSClient.cpp.o" \
+"CMakeFiles/client.dir/VNodeClient.cpp.o" \
+"CMakeFiles/client.dir/__/common/WriteRecord.cpp.o" \
+"CMakeFiles/client.dir/CacheClient.cpp.o" \
 "CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o" \
 "CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o" \
 "CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o"
@@ -190,12 +290,16 @@ client_EXTERNAL_OBJECTS =
 
 src/client/client: src/client/CMakeFiles/client.dir/Client.cpp.o
 src/client/client: src/client/CMakeFiles/client.dir/RPCClient.cpp.o
+src/client/client: src/client/CMakeFiles/client.dir/VFSClient.cpp.o
+src/client/client: src/client/CMakeFiles/client.dir/VNodeClient.cpp.o
+src/client/client: src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o
+src/client/client: src/client/CMakeFiles/client.dir/CacheClient.cpp.o
 src/client/client: src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o
 src/client/client: src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o
 src/client/client: src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o
 src/client/client: src/client/CMakeFiles/client.dir/build.make
 src/client/client: src/client/CMakeFiles/client.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable client"
 	cd /home/shipeng/Documents/Code/cs798a2/src/client && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -205,6 +309,10 @@ src/client/CMakeFiles/client.dir/build: src/client/client
 
 src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/Client.cpp.o.requires
 src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/RPCClient.cpp.o.requires
+src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/VFSClient.cpp.o.requires
+src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/VNodeClient.cpp.o.requires
+src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o.requires
+src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/CacheClient.cpp.o.requires
 src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o.requires
 src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o.requires
 src/client/CMakeFiles/client.dir/requires: src/client/CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o.requires

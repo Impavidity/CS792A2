@@ -27,9 +27,25 @@ void thrift2stat(thrift_stat &tstbuf, struct stat* stbuf) {
   stbuf->__glibc_reserved[2] = tstbuf.__glibc_reserved2;
 }
 
-RPCClient::RPCClient(char *hostName, int port) {
+RPCClient::RPCClient() {
+  // Initialize here
+}
+
+void RPCClient::setPort(int port) {
   this->port = port;
+}
+
+void RPCClient::setHostName(char *hostName) {
   this->hostName = strdup(hostName);
+}
+
+void RPCClient::setRootPath(char *rootPath) {
+  this->rootPath = strdup(rootPath);
+}
+
+
+
+void RPCClient::startClient() {
   this->socket = boost::shared_ptr<TTransport>(new TSocket(this->hostName, this->port));
   this->transport = boost::shared_ptr<TTransport>(new TBufferedTransport(this->socket));
   this->protocol = boost::shared_ptr<TProtocol>(new TBinaryProtocol(this->transport));
@@ -38,6 +54,12 @@ RPCClient::RPCClient(char *hostName, int port) {
     this->transport->open();
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;
+  }
+  thrift_file_handler fh;
+  client.nfs_mount(fh, rootPath);
+  if (fh.inode == 0) {
+    std::cout << "Dir does not exist" << std::endl;
+    exit(1);
   }
 }
 

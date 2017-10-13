@@ -35,11 +35,21 @@ using boost::shared_ptr;
 class NFSHandler : virtual public NFSIf {
 public:
 
-  FuseInterface fuseInterface;
-  std::string prefix = "/tmp/server_fuse";
+  FileSystemInterface fileSystemInterface;
+  std::string prefix;
 
   NFSHandler() {
-    // Your initialization goes here
+
+  }
+
+  void nfs_mount(thrift_file_handler& _return, const std::string& path) {
+    printf("nfs_mount\n");
+    this->prefix = path;
+    __ino_t inode = fileSystemInterface.check(path.c_str());
+    // use 1 in the case
+    _return.system_id = 1;
+    _return.generation_number = 1;
+    _return.inode = (int64_t) inode;
   }
 
   void ping() {
@@ -50,14 +60,14 @@ public:
   void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath) {
     // Your implementation goes here
     std::vector<thrift_dir_entry> entries;
-    _return.ret = fuseInterface.fuse_readdir((prefix+tpath).c_str(), entries);
+    _return.ret = fileSystemInterface.fuse_readdir((prefix+tpath).c_str(), entries);
     _return.dir_entries = entries;
   }
 
   int32_t nfs_mkdir(const std::string& tpath, const int32_t mode) {
     // Your implementation goes here
     int ret;
-    ret = fuseInterface.fuse_mkdir((prefix + tpath).c_str(), mode);
+    ret = fileSystemInterface.fuse_mkdir((prefix + tpath).c_str(), mode);
     printf("nfs_mkdir\n");
     return ret;
   }
@@ -65,7 +75,7 @@ public:
   int32_t nfs_rmdir(const std::string& tpath) {
     // Your implementation goes here
     int ret;
-    ret = fuseInterface.fuse_rmdir((prefix + tpath).c_str());
+    ret = fileSystemInterface.fuse_rmdir((prefix + tpath).c_str());
     printf("nfs_rmdir\n");
     return ret;
   }
@@ -74,7 +84,7 @@ public:
     // Your implementation goes here
     struct stat stbuf;
     //int ret = lstat((prefix + tpath).c_str(), &stbuf);
-    int ret = fuseInterface.fuse_getattr((prefix+tpath).c_str(), &stbuf);
+    int ret = fileSystemInterface.fuse_getattr((prefix+tpath).c_str(), &stbuf);
     _return.ret = ret;
     stat2thrift(&stbuf, _return.tstbuf);
   }
@@ -86,6 +96,8 @@ public:
 };
 
 RPCServer::RPCServer(int port) {
+
+
 
   shared_ptr<NFSHandler> handler(new NFSHandler());
   this->processor = shared_ptr<TProcessor>(new NFSProcessor(handler));

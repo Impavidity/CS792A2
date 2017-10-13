@@ -45,10 +45,18 @@ struct thrift_getattr_reply {
     2: thrift_stat tstbuf;
 }
 
+struct thrift_file_handler {
+    1: i32 system_id;
+    2: i64 inode;
+    3: i64 generation_number;
+}
+
 service NFS {
+    thrift_file_handler nfs_mount(1:string path);
     thrift_readdir_reply nfs_readdir(1:string tpath);
     i32 nfs_mkdir(1:string tpath, 2:i32 mode);
     i32 nfs_rmdir(1:string tpath);
-    thrift_getattr_reply nfs_getattr(1:string tpath)
+    thrift_getattr_reply nfs_getattr(1:string tpath);
+
     void ping();
 }

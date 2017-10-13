@@ -125,32 +125,32 @@ server/fast:
 	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-FuseInterface.o: FuseInterface.cpp.o
+FileSystemInterface.o: FileSystemInterface.cpp.o
 
-.PHONY : FuseInterface.o
+.PHONY : FileSystemInterface.o
 
 # target to build an object file
-FuseInterface.cpp.o:
-	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FuseInterface.cpp.o
-.PHONY : FuseInterface.cpp.o
+FileSystemInterface.cpp.o:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o
+.PHONY : FileSystemInterface.cpp.o
 
-FuseInterface.i: FuseInterface.cpp.i
+FileSystemInterface.i: FileSystemInterface.cpp.i
 
-.PHONY : FuseInterface.i
+.PHONY : FileSystemInterface.i
 
 # target to preprocess a source file
-FuseInterface.cpp.i:
-	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FuseInterface.cpp.i
-.PHONY : FuseInterface.cpp.i
+FileSystemInterface.cpp.i:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.i
+.PHONY : FileSystemInterface.cpp.i
 
-FuseInterface.s: FuseInterface.cpp.s
+FileSystemInterface.s: FileSystemInterface.cpp.s
 
-.PHONY : FuseInterface.s
+.PHONY : FileSystemInterface.s
 
 # target to generate assembly for a file
-FuseInterface.cpp.s:
-	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FuseInterface.cpp.s
-.PHONY : FuseInterface.cpp.s
+FileSystemInterface.cpp.s:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.s
+.PHONY : FileSystemInterface.cpp.s
 
 RPCServer.o: RPCServer.cpp.o
 
@@ -296,9 +296,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... server"
-	@echo "... FuseInterface.o"
-	@echo "... FuseInterface.i"
-	@echo "... FuseInterface.s"
+	@echo "... FileSystemInterface.o"
+	@echo "... FileSystemInterface.i"
+	@echo "... FileSystemInterface.s"
 	@echo "... RPCServer.o"
 	@echo "... RPCServer.i"
 	@echo "... RPCServer.s"

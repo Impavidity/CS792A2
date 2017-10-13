@@ -990,3 +990,129 @@ void thrift_getattr_reply::printTo(std::ostream& out) const {
 }
 
 
+thrift_file_handler::~thrift_file_handler() throw() {
+}
+
+
+void thrift_file_handler::__set_system_id(const int32_t val) {
+  this->system_id = val;
+}
+
+void thrift_file_handler::__set_inode(const int64_t val) {
+  this->inode = val;
+}
+
+void thrift_file_handler::__set_generation_number(const int64_t val) {
+  this->generation_number = val;
+}
+
+uint32_t thrift_file_handler::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->system_id);
+          this->__isset.system_id = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->inode);
+          this->__isset.inode = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->generation_number);
+          this->__isset.generation_number = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t thrift_file_handler::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("thrift_file_handler");
+
+  xfer += oprot->writeFieldBegin("system_id", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(this->system_id);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("inode", ::apache::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeI64(this->inode);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("generation_number", ::apache::thrift::protocol::T_I64, 3);
+  xfer += oprot->writeI64(this->generation_number);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(thrift_file_handler &a, thrift_file_handler &b) {
+  using ::std::swap;
+  swap(a.system_id, b.system_id);
+  swap(a.inode, b.inode);
+  swap(a.generation_number, b.generation_number);
+  swap(a.__isset, b.__isset);
+}
+
+thrift_file_handler::thrift_file_handler(const thrift_file_handler& other18) {
+  system_id = other18.system_id;
+  inode = other18.inode;
+  generation_number = other18.generation_number;
+  __isset = other18.__isset;
+}
+thrift_file_handler& thrift_file_handler::operator=(const thrift_file_handler& other19) {
+  system_id = other19.system_id;
+  inode = other19.inode;
+  generation_number = other19.generation_number;
+  __isset = other19.__isset;
+  return *this;
+}
+void thrift_file_handler::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "thrift_file_handler(";
+  out << "system_id=" << to_string(system_id);
+  out << ", " << "inode=" << to_string(inode);
+  out << ", " << "generation_number=" << to_string(generation_number);
+  out << ")";
+}
+
+

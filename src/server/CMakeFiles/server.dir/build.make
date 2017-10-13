@@ -105,28 +105,28 @@ src/server/CMakeFiles/server.dir/RPCServer.cpp.o.provides: src/server/CMakeFiles
 src/server/CMakeFiles/server.dir/RPCServer.cpp.o.provides.build: src/server/CMakeFiles/server.dir/RPCServer.cpp.o
 
 
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.o: src/server/CMakeFiles/server.dir/flags.make
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.o: src/server/FuseInterface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/server/CMakeFiles/server.dir/FuseInterface.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/FuseInterface.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.cpp
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o: src/server/CMakeFiles/server.dir/flags.make
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o: src/server/FileSystemInterface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o"
+	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/FileSystemInterface.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp
 
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/FuseInterface.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.cpp > CMakeFiles/server.dir/FuseInterface.cpp.i
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/FileSystemInterface.cpp.i"
+	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp > CMakeFiles/server.dir/FileSystemInterface.cpp.i
 
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/FuseInterface.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.cpp -o CMakeFiles/server.dir/FuseInterface.cpp.s
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/FileSystemInterface.cpp.s"
+	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp -o CMakeFiles/server.dir/FileSystemInterface.cpp.s
 
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.requires:
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.requires:
 
-.PHONY : src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.requires
+.PHONY : src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.requires
 
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.provides: src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.requires
-	$(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.provides.build
-.PHONY : src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.provides
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.provides: src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.requires
+	$(MAKE) -f src/server/CMakeFiles/server.dir/build.make src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.provides.build
+.PHONY : src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.provides
 
-src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.provides.build: src/server/CMakeFiles/server.dir/FuseInterface.cpp.o
+src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.provides.build: src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o
 
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o: src/server/CMakeFiles/server.dir/flags.make
@@ -205,7 +205,7 @@ src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o.provides.build: src/se
 server_OBJECTS = \
 "CMakeFiles/server.dir/Server.cpp.o" \
 "CMakeFiles/server.dir/RPCServer.cpp.o" \
-"CMakeFiles/server.dir/FuseInterface.cpp.o" \
+"CMakeFiles/server.dir/FileSystemInterface.cpp.o" \
 "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o" \
 "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o" \
 "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o"
@@ -215,7 +215,7 @@ server_EXTERNAL_OBJECTS =
 
 src/server/server: src/server/CMakeFiles/server.dir/Server.cpp.o
 src/server/server: src/server/CMakeFiles/server.dir/RPCServer.cpp.o
-src/server/server: src/server/CMakeFiles/server.dir/FuseInterface.cpp.o
+src/server/server: src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o
 src/server/server: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o
 src/server/server: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o
 src/server/server: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o
@@ -231,7 +231,7 @@ src/server/CMakeFiles/server.dir/build: src/server/server
 
 src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/Server.cpp.o.requires
 src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/RPCServer.cpp.o.requires
-src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/FuseInterface.cpp.o.requires
+src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.requires
 src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o.requires
 src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o.requires
 src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o.requires

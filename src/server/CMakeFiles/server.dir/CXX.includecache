@@ -50,11 +50,11 @@ thrift/transport/TTransport.h
 thrift/cxxfunctional.h
 -
 
-/home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.cpp
-FuseInterface.h
-/home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.h
+/home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp
+FileSystemInterface.h
+/home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.h
 
-/home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.h
+/home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.h
 vector
 -
 iostream
@@ -77,6 +77,10 @@ RPCServer.h
 /home/shipeng/Documents/Code/cs798a2/src/server/RPCServer.h
 vector
 -
+stdlib.h
+-
+stdio.h
+-
 thrift/protocol/TBinaryProtocol.h
 -
 thrift/server/TSimpleServer.h
@@ -95,8 +99,8 @@ sys/stat.h
 -
 NFS.h
 /home/shipeng/Documents/Code/cs798a2/src/server/NFS.h
-FuseInterface.h
-/home/shipeng/Documents/Code/cs798a2/src/server/FuseInterface.h
+FileSystemInterface.h
+/home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.h
 
 /home/shipeng/Documents/Code/cs798a2/src/server/Server.cpp
 RPCServer.h

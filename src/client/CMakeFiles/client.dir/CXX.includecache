@@ -6,9 +6,27 @@
 
 #IncludeRegexTransform: 
 
+/home/shipeng/Documents/Code/cs798a2/src/client/CacheClient.cpp
+CacheClient.h
+/home/shipeng/Documents/Code/cs798a2/src/client/CacheClient.h
+
+/home/shipeng/Documents/Code/cs798a2/src/client/CacheClient.h
+map
+-
+vector
+-
+string
+-
+VNodeClient.h
+/home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.h
+../common/WriteRecord.h
+/home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.h
+
 /home/shipeng/Documents/Code/cs798a2/src/client/Client.cpp
 RPCClient.h
 /home/shipeng/Documents/Code/cs798a2/src/client/RPCClient.h
+VFSClient.h
+/home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.h
 
 /home/shipeng/Documents/Code/cs798a2/src/client/RPCClient.cpp
 RPCClient.h
@@ -21,6 +39,8 @@ string
 -
 fuse.h
 -
+stdlib.h
+-
 thrift/protocol/TBinaryProtocol.h
 -
 thrift/transport/TSocket.h
@@ -31,6 +51,26 @@ sys/stat.h
 -
 NFS.h
 /home/shipeng/Documents/Code/cs798a2/src/client/NFS.h
+
+/home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.cpp
+VFSClient.h
+/home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.h
+
+/home/shipeng/Documents/Code/cs798a2/src/client/VFSClient.h
+RPCClient.h
+/home/shipeng/Documents/Code/cs798a2/src/client/RPCClient.h
+
+/home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.cpp
+VNodeClient.h
+/home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.h
+
+/home/shipeng/Documents/Code/cs798a2/src/client/VNodeClient.h
+
+/home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.cpp
+WriteRecord.h
+/home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.h
+
+/home/shipeng/Documents/Code/cs798a2/src/common/WriteRecord.h
 
 /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS.cpp
 NFS.h

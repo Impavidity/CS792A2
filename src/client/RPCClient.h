@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <fuse.h>
+#include <stdlib.h>
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TTransportUtils.h>
@@ -24,11 +25,16 @@ class RPCClient {
 public:
   char* hostName;
   int port;
+  char* rootPath;
   boost::shared_ptr<TTransport> socket;
   boost::shared_ptr<TProtocol> protocol;
   boost::shared_ptr<TTransport> transport;
   NFSClient client;
-  RPCClient(char * hostName, int port);
+  RPCClient();
+  void setHostName(char* hostName);
+  void setPort(int port);
+  void setRootPath(char* rootPath);
+  void startClient();
   int nfs_create(const char* path, mode_t mode, struct fuse_file_info* fi);
   int nfs_readdir(const char* path, void * buf, fuse_fill_dir_t filler, off_t offset,
                   struct fuse_file_info *fi, enum fuse_readdir_flags flags);

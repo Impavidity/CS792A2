@@ -31,6 +31,8 @@ class thrift_stat;
 
 class thrift_getattr_reply;
 
+class thrift_file_handler;
+
 typedef struct _thrift_dir_entry__isset {
   _thrift_dir_entry__isset() : dir_id(false), dir_type(false), dir_name(false) {}
   bool dir_id :1;
@@ -434,6 +436,64 @@ class thrift_getattr_reply {
 void swap(thrift_getattr_reply &a, thrift_getattr_reply &b);
 
 inline std::ostream& operator<<(std::ostream& out, const thrift_getattr_reply& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+typedef struct _thrift_file_handler__isset {
+  _thrift_file_handler__isset() : system_id(false), inode(false), generation_number(false) {}
+  bool system_id :1;
+  bool inode :1;
+  bool generation_number :1;
+} _thrift_file_handler__isset;
+
+class thrift_file_handler {
+ public:
+
+  thrift_file_handler(const thrift_file_handler&);
+  thrift_file_handler& operator=(const thrift_file_handler&);
+  thrift_file_handler() : system_id(0), inode(0), generation_number(0) {
+  }
+
+  virtual ~thrift_file_handler() throw();
+  int32_t system_id;
+  int64_t inode;
+  int64_t generation_number;
+
+  _thrift_file_handler__isset __isset;
+
+  void __set_system_id(const int32_t val);
+
+  void __set_inode(const int64_t val);
+
+  void __set_generation_number(const int64_t val);
+
+  bool operator == (const thrift_file_handler & rhs) const
+  {
+    if (!(system_id == rhs.system_id))
+      return false;
+    if (!(inode == rhs.inode))
+      return false;
+    if (!(generation_number == rhs.generation_number))
+      return false;
+    return true;
+  }
+  bool operator != (const thrift_file_handler &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const thrift_file_handler & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(thrift_file_handler &a, thrift_file_handler &b);
+
+inline std::ostream& operator<<(std::ostream& out, const thrift_file_handler& obj)
 {
   obj.printTo(out);
   return out;

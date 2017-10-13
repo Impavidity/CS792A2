@@ -125,6 +125,33 @@ client/fast:
 	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/build
 .PHONY : client/fast
 
+CacheClient.o: CacheClient.cpp.o
+
+.PHONY : CacheClient.o
+
+# target to build an object file
+CacheClient.cpp.o:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/CacheClient.cpp.o
+.PHONY : CacheClient.cpp.o
+
+CacheClient.i: CacheClient.cpp.i
+
+.PHONY : CacheClient.i
+
+# target to preprocess a source file
+CacheClient.cpp.i:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/CacheClient.cpp.i
+.PHONY : CacheClient.cpp.i
+
+CacheClient.s: CacheClient.cpp.s
+
+.PHONY : CacheClient.s
+
+# target to generate assembly for a file
+CacheClient.cpp.s:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/CacheClient.cpp.s
+.PHONY : CacheClient.cpp.s
+
 Client.o: Client.cpp.o
 
 .PHONY : Client.o
@@ -178,6 +205,87 @@ RPCClient.s: RPCClient.cpp.s
 RPCClient.cpp.s:
 	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/RPCClient.cpp.s
 .PHONY : RPCClient.cpp.s
+
+VFSClient.o: VFSClient.cpp.o
+
+.PHONY : VFSClient.o
+
+# target to build an object file
+VFSClient.cpp.o:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VFSClient.cpp.o
+.PHONY : VFSClient.cpp.o
+
+VFSClient.i: VFSClient.cpp.i
+
+.PHONY : VFSClient.i
+
+# target to preprocess a source file
+VFSClient.cpp.i:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VFSClient.cpp.i
+.PHONY : VFSClient.cpp.i
+
+VFSClient.s: VFSClient.cpp.s
+
+.PHONY : VFSClient.s
+
+# target to generate assembly for a file
+VFSClient.cpp.s:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VFSClient.cpp.s
+.PHONY : VFSClient.cpp.s
+
+VNodeClient.o: VNodeClient.cpp.o
+
+.PHONY : VNodeClient.o
+
+# target to build an object file
+VNodeClient.cpp.o:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VNodeClient.cpp.o
+.PHONY : VNodeClient.cpp.o
+
+VNodeClient.i: VNodeClient.cpp.i
+
+.PHONY : VNodeClient.i
+
+# target to preprocess a source file
+VNodeClient.cpp.i:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VNodeClient.cpp.i
+.PHONY : VNodeClient.cpp.i
+
+VNodeClient.s: VNodeClient.cpp.s
+
+.PHONY : VNodeClient.s
+
+# target to generate assembly for a file
+VNodeClient.cpp.s:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/VNodeClient.cpp.s
+.PHONY : VNodeClient.cpp.s
+
+__/common/WriteRecord.o: __/common/WriteRecord.cpp.o
+
+.PHONY : __/common/WriteRecord.o
+
+# target to build an object file
+__/common/WriteRecord.cpp.o:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.o
+.PHONY : __/common/WriteRecord.cpp.o
+
+__/common/WriteRecord.i: __/common/WriteRecord.cpp.i
+
+.PHONY : __/common/WriteRecord.i
+
+# target to preprocess a source file
+__/common/WriteRecord.cpp.i:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.i
+.PHONY : __/common/WriteRecord.cpp.i
+
+__/common/WriteRecord.s: __/common/WriteRecord.cpp.s
+
+.PHONY : __/common/WriteRecord.s
+
+# target to generate assembly for a file
+__/common/WriteRecord.cpp.s:
+	cd /home/shipeng/Documents/Code/cs798a2 && $(MAKE) -f src/client/CMakeFiles/client.dir/build.make src/client/CMakeFiles/client.dir/__/common/WriteRecord.cpp.s
+.PHONY : __/common/WriteRecord.cpp.s
 
 __/rpc/gen-cpp/NFS.o: __/rpc/gen-cpp/NFS.cpp.o
 
@@ -269,12 +377,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... client"
+	@echo "... CacheClient.o"
+	@echo "... CacheClient.i"
+	@echo "... CacheClient.s"
 	@echo "... Client.o"
 	@echo "... Client.i"
 	@echo "... Client.s"
 	@echo "... RPCClient.o"
 	@echo "... RPCClient.i"
 	@echo "... RPCClient.s"
+	@echo "... VFSClient.o"
+	@echo "... VFSClient.i"
+	@echo "... VFSClient.s"
+	@echo "... VNodeClient.o"
+	@echo "... VNodeClient.i"
+	@echo "... VNodeClient.s"
+	@echo "... __/common/WriteRecord.o"
+	@echo "... __/common/WriteRecord.i"
+	@echo "... __/common/WriteRecord.s"
 	@echo "... __/rpc/gen-cpp/NFS.o"
 	@echo "... __/rpc/gen-cpp/NFS.i"
 	@echo "... __/rpc/gen-cpp/NFS.s"

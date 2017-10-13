@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/client.dir/Client.cpp.o"
   "CMakeFiles/client.dir/RPCClient.cpp.o"
+  "CMakeFiles/client.dir/VFSClient.cpp.o"
+  "CMakeFiles/client.dir/VNodeClient.cpp.o"
+  "CMakeFiles/client.dir/__/common/WriteRecord.cpp.o"
+  "CMakeFiles/client.dir/CacheClient.cpp.o"
   "CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
   "CMakeFiles/client.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
   "CMakeFiles/client.dir/__/rpc/gen-cpp/NFS.cpp.o"

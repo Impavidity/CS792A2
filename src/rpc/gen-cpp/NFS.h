@@ -21,6 +21,7 @@
 class NFSIf {
  public:
   virtual ~NFSIf() {}
+  virtual void nfs_mount(thrift_file_handler& _return, const std::string& path) = 0;
   virtual void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath) = 0;
   virtual int32_t nfs_mkdir(const std::string& tpath, const int32_t mode) = 0;
   virtual int32_t nfs_rmdir(const std::string& tpath) = 0;
@@ -55,6 +56,9 @@ class NFSIfSingletonFactory : virtual public NFSIfFactory {
 class NFSNull : virtual public NFSIf {
  public:
   virtual ~NFSNull() {}
+  void nfs_mount(thrift_file_handler& /* _return */, const std::string& /* path */) {
+    return;
+  }
   void nfs_readdir(thrift_readdir_reply& /* _return */, const std::string& /* tpath */) {
     return;
   }
@@ -72,6 +76,110 @@ class NFSNull : virtual public NFSIf {
   void ping() {
     return;
   }
+};
+
+typedef struct _NFS_nfs_mount_args__isset {
+  _NFS_nfs_mount_args__isset() : path(false) {}
+  bool path :1;
+} _NFS_nfs_mount_args__isset;
+
+class NFS_nfs_mount_args {
+ public:
+
+  NFS_nfs_mount_args(const NFS_nfs_mount_args&);
+  NFS_nfs_mount_args& operator=(const NFS_nfs_mount_args&);
+  NFS_nfs_mount_args() : path() {
+  }
+
+  virtual ~NFS_nfs_mount_args() throw();
+  std::string path;
+
+  _NFS_nfs_mount_args__isset __isset;
+
+  void __set_path(const std::string& val);
+
+  bool operator == (const NFS_nfs_mount_args & rhs) const
+  {
+    if (!(path == rhs.path))
+      return false;
+    return true;
+  }
+  bool operator != (const NFS_nfs_mount_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const NFS_nfs_mount_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class NFS_nfs_mount_pargs {
+ public:
+
+
+  virtual ~NFS_nfs_mount_pargs() throw();
+  const std::string* path;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _NFS_nfs_mount_result__isset {
+  _NFS_nfs_mount_result__isset() : success(false) {}
+  bool success :1;
+} _NFS_nfs_mount_result__isset;
+
+class NFS_nfs_mount_result {
+ public:
+
+  NFS_nfs_mount_result(const NFS_nfs_mount_result&);
+  NFS_nfs_mount_result& operator=(const NFS_nfs_mount_result&);
+  NFS_nfs_mount_result() {
+  }
+
+  virtual ~NFS_nfs_mount_result() throw();
+  thrift_file_handler success;
+
+  _NFS_nfs_mount_result__isset __isset;
+
+  void __set_success(const thrift_file_handler& val);
+
+  bool operator == (const NFS_nfs_mount_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    return true;
+  }
+  bool operator != (const NFS_nfs_mount_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const NFS_nfs_mount_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _NFS_nfs_mount_presult__isset {
+  _NFS_nfs_mount_presult__isset() : success(false) {}
+  bool success :1;
+} _NFS_nfs_mount_presult__isset;
+
+class NFS_nfs_mount_presult {
+ public:
+
+
+  virtual ~NFS_nfs_mount_presult() throw();
+  thrift_file_handler* success;
+
+  _NFS_nfs_mount_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
 };
 
 typedef struct _NFS_nfs_readdir_args__isset {
@@ -597,6 +705,9 @@ class NFSClient : virtual public NFSIf {
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
+  void nfs_mount(thrift_file_handler& _return, const std::string& path);
+  void send_nfs_mount(const std::string& path);
+  void recv_nfs_mount(thrift_file_handler& _return);
   void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath);
   void send_nfs_readdir(const std::string& tpath);
   void recv_nfs_readdir(thrift_readdir_reply& _return);
@@ -627,6 +738,7 @@ class NFSProcessor : public ::apache::thrift::TDispatchProcessor {
   typedef  void (NFSProcessor::*ProcessFunction)(int32_t, ::apache::thrift::protocol::TProtocol*, ::apache::thrift::protocol::TProtocol*, void*);
   typedef std::map<std::string, ProcessFunction> ProcessMap;
   ProcessMap processMap_;
+  void process_nfs_mount(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_nfs_readdir(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_nfs_mkdir(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_nfs_rmdir(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
@@ -635,6 +747,7 @@ class NFSProcessor : public ::apache::thrift::TDispatchProcessor {
  public:
   NFSProcessor(boost::shared_ptr<NFSIf> iface) :
     iface_(iface) {
+    processMap_["nfs_mount"] = &NFSProcessor::process_nfs_mount;
     processMap_["nfs_readdir"] = &NFSProcessor::process_nfs_readdir;
     processMap_["nfs_mkdir"] = &NFSProcessor::process_nfs_mkdir;
     processMap_["nfs_rmdir"] = &NFSProcessor::process_nfs_rmdir;
@@ -668,6 +781,16 @@ class NFSMultiface : virtual public NFSIf {
     ifaces_.push_back(iface);
   }
  public:
+  void nfs_mount(thrift_file_handler& _return, const std::string& path) {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->nfs_mount(_return, path);
+    }
+    ifaces_[i]->nfs_mount(_return, path);
+    return;
+  }
+
   void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath) {
     size_t sz = ifaces_.size();
     size_t i = 0;
@@ -745,6 +868,9 @@ class NFSConcurrentClient : virtual public NFSIf {
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
+  void nfs_mount(thrift_file_handler& _return, const std::string& path);
+  int32_t send_nfs_mount(const std::string& path);
+  void recv_nfs_mount(thrift_file_handler& _return, const int32_t seqid);
   void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath);
   int32_t send_nfs_readdir(const std::string& tpath);
   void recv_nfs_readdir(thrift_readdir_reply& _return, const int32_t seqid);

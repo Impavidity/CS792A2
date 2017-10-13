@@ -20,6 +20,11 @@ class NFSHandler : virtual public NFSIf {
     // Your initialization goes here
   }
 
+  void nfs_mount(thrift_file_handler& _return, const std::string& path) {
+    // Your implementation goes here
+    printf("nfs_mount\n");
+  }
+
   void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath) {
     // Your implementation goes here
     printf("nfs_readdir\n");

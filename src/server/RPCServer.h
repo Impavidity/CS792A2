@@ -7,6 +7,8 @@
 
 
 #include <vector>
+#include <stdlib.h>
+#include <stdio.h>
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/server/TSimpleServer.h>
 #include <thrift/server/TThreadPoolServer.h>
@@ -16,7 +18,7 @@
 #include <thrift/concurrency/PlatformThreadFactory.h>
 #include <sys/stat.h>
 #include "NFS.h"
-#include "FuseInterface.h"
+#include "FileSystemInterface.h"
 
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
@@ -34,6 +36,8 @@ public:
   RPCServer(int port);
   void start();
 };
+
+
 
 
 

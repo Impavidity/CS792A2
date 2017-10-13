@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/server.dir/Server.cpp.o"
   "CMakeFiles/server.dir/RPCServer.cpp.o"
-  "CMakeFiles/server.dir/FuseInterface.cpp.o"
+  "CMakeFiles/server.dir/FileSystemInterface.cpp.o"
   "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
   "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
   "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o"
