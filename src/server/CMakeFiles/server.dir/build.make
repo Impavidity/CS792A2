@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/shipeng/Documents/Code/cs798a2
+CMAKE_SOURCE_DIR = /home/shipeng/Documents/Code/CS792A2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/shipeng/Documents/Code/cs798a2
+CMAKE_BINARY_DIR = /home/shipeng/Documents/Code/CS792A2
 
 # Include any dependencies generated for this target.
 include src/server/CMakeFiles/server.dir/depend.make
@@ -59,16 +59,16 @@ include src/server/CMakeFiles/server.dir/flags.make
 
 src/server/CMakeFiles/server.dir/Server.cpp.o: src/server/CMakeFiles/server.dir/flags.make
 src/server/CMakeFiles/server.dir/Server.cpp.o: src/server/Server.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/server/CMakeFiles/server.dir/Server.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/Server.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/server/Server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/server/CMakeFiles/server.dir/Server.cpp.o"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/Server.cpp.o -c /home/shipeng/Documents/Code/CS792A2/src/server/Server.cpp
 
 src/server/CMakeFiles/server.dir/Server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/Server.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/server/Server.cpp > CMakeFiles/server.dir/Server.cpp.i
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/CS792A2/src/server/Server.cpp > CMakeFiles/server.dir/Server.cpp.i
 
 src/server/CMakeFiles/server.dir/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/Server.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/server/Server.cpp -o CMakeFiles/server.dir/Server.cpp.s
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/CS792A2/src/server/Server.cpp -o CMakeFiles/server.dir/Server.cpp.s
 
 src/server/CMakeFiles/server.dir/Server.cpp.o.requires:
 
@@ -83,16 +83,16 @@ src/server/CMakeFiles/server.dir/Server.cpp.o.provides.build: src/server/CMakeFi
 
 src/server/CMakeFiles/server.dir/RPCServer.cpp.o: src/server/CMakeFiles/server.dir/flags.make
 src/server/CMakeFiles/server.dir/RPCServer.cpp.o: src/server/RPCServer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/server/CMakeFiles/server.dir/RPCServer.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/RPCServer.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/server/RPCServer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/server/CMakeFiles/server.dir/RPCServer.cpp.o"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/RPCServer.cpp.o -c /home/shipeng/Documents/Code/CS792A2/src/server/RPCServer.cpp
 
 src/server/CMakeFiles/server.dir/RPCServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/RPCServer.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/server/RPCServer.cpp > CMakeFiles/server.dir/RPCServer.cpp.i
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/CS792A2/src/server/RPCServer.cpp > CMakeFiles/server.dir/RPCServer.cpp.i
 
 src/server/CMakeFiles/server.dir/RPCServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/RPCServer.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/server/RPCServer.cpp -o CMakeFiles/server.dir/RPCServer.cpp.s
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/CS792A2/src/server/RPCServer.cpp -o CMakeFiles/server.dir/RPCServer.cpp.s
 
 src/server/CMakeFiles/server.dir/RPCServer.cpp.o.requires:
 
@@ -107,16 +107,16 @@ src/server/CMakeFiles/server.dir/RPCServer.cpp.o.provides.build: src/server/CMak
 
 src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o: src/server/CMakeFiles/server.dir/flags.make
 src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o: src/server/FileSystemInterface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/FileSystemInterface.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/FileSystemInterface.cpp.o -c /home/shipeng/Documents/Code/CS792A2/src/server/FileSystemInterface.cpp
 
 src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/FileSystemInterface.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp > CMakeFiles/server.dir/FileSystemInterface.cpp.i
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/CS792A2/src/server/FileSystemInterface.cpp > CMakeFiles/server.dir/FileSystemInterface.cpp.i
 
 src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/FileSystemInterface.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/server/FileSystemInterface.cpp -o CMakeFiles/server.dir/FileSystemInterface.cpp.s
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/CS792A2/src/server/FileSystemInterface.cpp -o CMakeFiles/server.dir/FileSystemInterface.cpp.s
 
 src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.requires:
 
@@ -131,16 +131,16 @@ src/server/CMakeFiles/server.dir/FileSystemInterface.cpp.o.provides.build: src/s
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o: src/server/CMakeFiles/server.dir/flags.make
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o: src/rpc/gen-cpp/NFS_constants.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_constants.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o -c /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_constants.cpp
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_constants.cpp > CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.i
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_constants.cpp > CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.i
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_constants.cpp -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.s
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_constants.cpp -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.s
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o.requires:
 
@@ -155,16 +155,16 @@ src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o.provides.bui
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o: src/server/CMakeFiles/server.dir/flags.make
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o: src/rpc/gen-cpp/NFS_types.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_types.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o -c /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.cpp
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_types.cpp > CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.i
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.cpp > CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.i
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS_types.cpp -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.s
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.cpp -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.s
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o.requires:
 
@@ -179,16 +179,16 @@ src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o.provides.build: 
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o: src/server/CMakeFiles/server.dir/flags.make
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o: src/rpc/gen-cpp/NFS.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o -c /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o -c /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS.cpp
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.i"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS.cpp > CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.i
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS.cpp > CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.i
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.s"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp/NFS.cpp -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.s
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS.cpp -o CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.s
 
 src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o.requires:
 
@@ -221,8 +221,8 @@ src/server/server: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp
 src/server/server: src/server/CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o
 src/server/server: src/server/CMakeFiles/server.dir/build.make
 src/server/server: src/server/CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shipeng/Documents/Code/cs798a2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable server"
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shipeng/Documents/Code/CS792A2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable server"
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/server/CMakeFiles/server.dir/build: src/server/server
@@ -239,10 +239,10 @@ src/server/CMakeFiles/server.dir/requires: src/server/CMakeFiles/server.dir/__/r
 .PHONY : src/server/CMakeFiles/server.dir/requires
 
 src/server/CMakeFiles/server.dir/clean:
-	cd /home/shipeng/Documents/Code/cs798a2/src/server && $(CMAKE_COMMAND) -P CMakeFiles/server.dir/cmake_clean.cmake
+	cd /home/shipeng/Documents/Code/CS792A2/src/server && $(CMAKE_COMMAND) -P CMakeFiles/server.dir/cmake_clean.cmake
 .PHONY : src/server/CMakeFiles/server.dir/clean
 
 src/server/CMakeFiles/server.dir/depend:
-	cd /home/shipeng/Documents/Code/cs798a2 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/shipeng/Documents/Code/cs798a2 /home/shipeng/Documents/Code/cs798a2/src/server /home/shipeng/Documents/Code/cs798a2 /home/shipeng/Documents/Code/cs798a2/src/server /home/shipeng/Documents/Code/cs798a2/src/server/CMakeFiles/server.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/shipeng/Documents/Code/CS792A2 && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/shipeng/Documents/Code/CS792A2 /home/shipeng/Documents/Code/CS792A2/src/server /home/shipeng/Documents/Code/CS792A2 /home/shipeng/Documents/Code/CS792A2/src/server /home/shipeng/Documents/Code/CS792A2/src/server/CMakeFiles/server.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/server/CMakeFiles/server.dir/depend
 

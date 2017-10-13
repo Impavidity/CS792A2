@@ -1,0 +1,1 @@
+thrift -r --gen cpp -o src/rpc/ src/NFS.thrift

@@ -1,4 +1,4 @@
-# Install script for directory: /home/shipeng/Documents/Code/cs798a2/src/server
+# Install script for directory: /home/shipeng/Documents/Code/CS792A2/src/server
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11 -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/shipeng/Documents/Code/cs798a2/libfuse/lib -I/home/shipeng/Documents/Code/cs798a2/libfuse/include -I/home/shipeng/Documents/Code/cs798a2/src/rpc/gen-cpp -I/home/shipeng/Documents/Code/cs798a2/src/client/../rpc/gen-cpp -I/home/shipeng/Documents/Code/cs798a2/src/client/../../libfuse/include -I/home/shipeng/Documents/Code/cs798a2/src/client/../../libfuse/lib -I/usr/local/include/fuse3 
+CXX_INCLUDES = -I/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp -I/home/shipeng/Documents/Code/CS792A2/src/client/../rpc/gen-cpp -I/usr/local/include/fuse3 
 

@@ -52,11 +52,10 @@ struct thrift_file_handler {
 }
 
 service NFS {
-    thrift_file_handler nfs_mount(1:string path);
-    thrift_readdir_reply nfs_readdir(1:string tpath);
-    i32 nfs_mkdir(1:string tpath, 2:i32 mode);
-    i32 nfs_rmdir(1:string tpath);
-    thrift_getattr_reply nfs_getattr(1:string tpath);
-
-    void ping();
+    thrift_file_handler mount(1:string path);
+    thrift_file_handler lookup(1:thrift_file_handler fh, 2:string path);
+    thrift_readdir_reply readdir(1:string tpath);
+    i32 mkdir(1:string tpath, 2:i32 mode);
+    i32 rmdir(1:string tpath);
+    thrift_getattr_reply getattr(1:string tpath);
 }

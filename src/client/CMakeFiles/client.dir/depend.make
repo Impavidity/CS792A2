@@ -9,26 +9,26 @@ src/client/CMakeFiles/client.dir/CacheClient.cpp.o: src/common/WriteRecord.h
 src/client/CMakeFiles/client.dir/Client.cpp.o: src/client/Client.cpp
 src/client/CMakeFiles/client.dir/Client.cpp.o: src/client/RPCClient.h
 src/client/CMakeFiles/client.dir/Client.cpp.o: src/client/VFSClient.h
-src/client/CMakeFiles/client.dir/Client.cpp.o: libfuse/include/fuse.h
-src/client/CMakeFiles/client.dir/Client.cpp.o: libfuse/include/fuse_common.h
-src/client/CMakeFiles/client.dir/Client.cpp.o: libfuse/include/fuse_opt.h
+src/client/CMakeFiles/client.dir/Client.cpp.o: /usr/local/include/fuse3/fuse.h
+src/client/CMakeFiles/client.dir/Client.cpp.o: /usr/local/include/fuse3/fuse_common.h
+src/client/CMakeFiles/client.dir/Client.cpp.o: /usr/local/include/fuse3/fuse_opt.h
 src/client/CMakeFiles/client.dir/Client.cpp.o: src/rpc/gen-cpp/NFS.h
 src/client/CMakeFiles/client.dir/Client.cpp.o: src/rpc/gen-cpp/NFS_types.h
 
 src/client/CMakeFiles/client.dir/RPCClient.cpp.o: src/client/RPCClient.cpp
 src/client/CMakeFiles/client.dir/RPCClient.cpp.o: src/client/RPCClient.h
-src/client/CMakeFiles/client.dir/RPCClient.cpp.o: libfuse/include/fuse.h
-src/client/CMakeFiles/client.dir/RPCClient.cpp.o: libfuse/include/fuse_common.h
-src/client/CMakeFiles/client.dir/RPCClient.cpp.o: libfuse/include/fuse_opt.h
+src/client/CMakeFiles/client.dir/RPCClient.cpp.o: /usr/local/include/fuse3/fuse.h
+src/client/CMakeFiles/client.dir/RPCClient.cpp.o: /usr/local/include/fuse3/fuse_common.h
+src/client/CMakeFiles/client.dir/RPCClient.cpp.o: /usr/local/include/fuse3/fuse_opt.h
 src/client/CMakeFiles/client.dir/RPCClient.cpp.o: src/rpc/gen-cpp/NFS.h
 src/client/CMakeFiles/client.dir/RPCClient.cpp.o: src/rpc/gen-cpp/NFS_types.h
 
 src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/client/RPCClient.h
 src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/client/VFSClient.cpp
 src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/client/VFSClient.h
-src/client/CMakeFiles/client.dir/VFSClient.cpp.o: libfuse/include/fuse.h
-src/client/CMakeFiles/client.dir/VFSClient.cpp.o: libfuse/include/fuse_common.h
-src/client/CMakeFiles/client.dir/VFSClient.cpp.o: libfuse/include/fuse_opt.h
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o: /usr/local/include/fuse3/fuse.h
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o: /usr/local/include/fuse3/fuse_common.h
+src/client/CMakeFiles/client.dir/VFSClient.cpp.o: /usr/local/include/fuse3/fuse_opt.h
 src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/rpc/gen-cpp/NFS.h
 src/client/CMakeFiles/client.dir/VFSClient.cpp.o: src/rpc/gen-cpp/NFS_types.h
 
