@@ -14,4 +14,10 @@ public:
 };
 
 
+// Specify static function for VNode. Generally pass the VNode pointer as one argument
+static VNodeClient* lookup(VNodeClient* vnode) {
+
+}
+
+
 #endif //NFS_FUSE_VNODECLIENT_H

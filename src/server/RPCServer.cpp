@@ -89,6 +89,14 @@ public:
     stat2thrift(&stbuf, _return.tstbuf);
   }
 
+  void lookup(thrift_file_handler& _return, const thrift_file_handler& fh, const std::string& path) {
+    //1 search for fh
+    //2 in the fh_path, search path
+    //3 check the cache with path -> vnode
+    //4  __ino_t inode = fileSystemInterface.check(path.c_str()); create a fh, vnode, cache the vnode
+    // return fh
+  }
+
 
 
 
