@@ -1,3 +1,0 @@
-/home/shipeng/Documents/Code/cs798a2/src/server/CMakeFiles/edit_cache.dir
-/home/shipeng/Documents/Code/cs798a2/src/server/CMakeFiles/rebuild_cache.dir
-/home/shipeng/Documents/Code/cs798a2/src/server/CMakeFiles/server.dir
