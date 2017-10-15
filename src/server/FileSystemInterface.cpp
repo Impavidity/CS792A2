@@ -12,9 +12,9 @@ FileSystemInterface::FileSystemInterface() {
 
 }
 
-__ino_t FileSystemInterface::check(const char *path) {
+__ino_t FileSystemInterface::getInode(const char *path) {
   struct stat sb;
-  if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode)) {
+  if (::stat(path, &sb) == 0 && S_ISDIR(sb.st_mode)) {
     return sb.st_ino;
   } else {
     return 0;
@@ -22,44 +22,44 @@ __ino_t FileSystemInterface::check(const char *path) {
 }
 
 
-int FileSystemInterface::fuse_readdir(const char *path, std::vector<thrift_dir_entry> &entries) {
+int FileSystemInterface::readdir(const char *path, std::vector<thrift_dir_entry> &entries) {
   DIR *dp;
   struct dirent *de;
 
-  dp = opendir(path);
+  dp = ::opendir(path);
   if (dp == NULL)
     return -ENOENT;
 
-  while ((de=readdir(dp)) != NULL) {
+  while ((de=::readdir(dp)) != NULL) {
     thrift_dir_entry entry;
     entry.__set_dir_id(de->d_ino);
     entry.__set_dir_name(de->d_name);
     entry.__set_dir_type(de->d_type);
     entries.push_back(entry);
   }
-  closedir(dp);
+  ::closedir(dp);
   return 0;
 }
 
-int FileSystemInterface::fuse_getattr(const char *path, struct stat *stbuf) {
+int FileSystemInterface::getattr(const char *path, struct stat *stbuf) {
   int ret;
-  ret = lstat(path, stbuf);
+  ret = ::lstat(path, stbuf);
   if (ret == -1)
     ret = -ENOENT;
   return ret;
 }
 
-int FileSystemInterface::fuse_mkdir(const char *path, mode_t mode) {
+int FileSystemInterface::mkdir(const char *path, mode_t mode) {
   int ret;
-  ret = mkdir(path, mode);
+  ret = ::mkdir(path, mode);
   if (ret == -1)
     ret = -ENOENT;
   return ret;
 }
 
-int FileSystemInterface::fuse_rmdir(const char *path) {
+int FileSystemInterface::rmdir(const char *path) {
   int ret;
-  ret = rmdir(path);
+  ret = ::rmdir(path);
   if (ret == -1)
     ret = -ENOENT;
   return ret;
