@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/zalsader/CLionProjects/CS792A2/src/client/CacheClient.cpp
+/home/shipeng/Documents/Code/CS792A2/src/client/CacheClient.cpp
 CacheClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/CacheClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/CacheClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/CacheClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/CacheClient.h
 map
 -
 vector
@@ -18,21 +18,21 @@ vector
 string
 -
 VNodeClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/VNodeClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/VNodeClient.h
 ../common/WriteRecord.h
-/home/zalsader/CLionProjects/CS792A2/src/common/WriteRecord.h
+/home/shipeng/Documents/Code/CS792A2/src/common/WriteRecord.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/Client.cpp
+/home/shipeng/Documents/Code/CS792A2/src/client/Client.cpp
 RPCClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/RPCClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/RPCClient.h
 VFSClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/VFSClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/VFSClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/RPCClient.cpp
+/home/shipeng/Documents/Code/CS792A2/src/client/RPCClient.cpp
 RPCClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/RPCClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/RPCClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/RPCClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/RPCClient.h
 iostream
 -
 string
@@ -50,51 +50,51 @@ thrift/transport/TTransportUtils.h
 sys/stat.h
 -
 NFS.h
-/home/zalsader/CLionProjects/CS792A2/src/client/NFS.h
+/home/shipeng/Documents/Code/CS792A2/src/client/NFS.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/VFSClient.cpp
+/home/shipeng/Documents/Code/CS792A2/src/client/VFSClient.cpp
 VFSClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/VFSClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/VFSClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/VFSClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/VFSClient.h
 RPCClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/RPCClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/RPCClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/VNodeClient.cpp
+/home/shipeng/Documents/Code/CS792A2/src/client/VNodeClient.cpp
 VNodeClient.h
-/home/zalsader/CLionProjects/CS792A2/src/client/VNodeClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/VNodeClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/client/VNodeClient.h
+/home/shipeng/Documents/Code/CS792A2/src/client/VNodeClient.h
 
-/home/zalsader/CLionProjects/CS792A2/src/common/WriteRecord.cpp
+/home/shipeng/Documents/Code/CS792A2/src/common/WriteRecord.cpp
 WriteRecord.h
-/home/zalsader/CLionProjects/CS792A2/src/common/WriteRecord.h
+/home/shipeng/Documents/Code/CS792A2/src/common/WriteRecord.h
 
-/home/zalsader/CLionProjects/CS792A2/src/common/WriteRecord.h
+/home/shipeng/Documents/Code/CS792A2/src/common/WriteRecord.h
 
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS.cpp
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS.cpp
 NFS.h
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS.h
 
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS.h
 thrift/TDispatchProcessor.h
 -
 thrift/async/TConcurrentClientSyncInfo.h
 -
 NFS_types.h
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_types.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.h
 
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_constants.cpp
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_constants.cpp
 NFS_constants.h
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_constants.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_constants.h
 
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_constants.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_constants.h
 NFS_types.h
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_types.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.h
 
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_types.cpp
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.cpp
 NFS_types.h
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_types.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.h
 algorithm
 -
 ostream
@@ -102,14 +102,12 @@ ostream
 thrift/TToString.h
 -
 
-/home/zalsader/CLionProjects/CS792A2/src/rpc/gen-cpp/NFS_types.h
+/home/shipeng/Documents/Code/CS792A2/src/rpc/gen-cpp/NFS_types.h
 iosfwd
 -
 thrift/Thrift.h
 -
 thrift/TApplicationException.h
--
-thrift/TBase.h
 -
 thrift/protocol/TProtocol.h
 -
@@ -158,8 +156,6 @@ iosfwd
 thrift/Thrift.h
 -
 thrift/TApplicationException.h
--
-thrift/TBase.h
 -
 thrift/protocol/TProtocol.h
 -

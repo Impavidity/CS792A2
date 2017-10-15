@@ -20,34 +20,34 @@ class NFSHandler : virtual public NFSIf {
     // Your initialization goes here
   }
 
-  void mount(thrift_file_handler& _return, const std::string& path) {
+  void nfs_mount(thrift_file_handler& _return, const std::string& path) {
     // Your implementation goes here
-    printf("mount\n");
+    printf("nfs_mount\n");
   }
 
-  void lookup(thrift_file_handler& _return, const thrift_file_handler& fh, const std::string& name) {
+  void nfs_readdir(thrift_readdir_reply& _return, const std::string& tpath) {
     // Your implementation goes here
-    printf("lookup\n");
+    printf("nfs_readdir\n");
   }
 
-  void getattr(thrift_getattr_reply& _return, const thrift_file_handler& fh) {
+  int32_t nfs_mkdir(const std::string& tpath, const int32_t mode) {
     // Your implementation goes here
-    printf("getattr\n");
+    printf("nfs_mkdir\n");
   }
 
-  void readdir(thrift_readdir_reply& _return, const thrift_file_handler& fh) {
+  int32_t nfs_rmdir(const std::string& tpath) {
     // Your implementation goes here
-    printf("readdir\n");
+    printf("nfs_rmdir\n");
   }
 
-  int32_t mkdir(const thrift_file_handler& fh, const std::string& name) {
+  void nfs_getattr(thrift_getattr_reply& _return, const std::string& tpath) {
     // Your implementation goes here
-    printf("mkdir\n");
+    printf("nfs_getattr\n");
   }
 
-  int32_t rmdir(const thrift_file_handler& fh) {
+  void ping() {
     // Your implementation goes here
-    printf("rmdir\n");
+    printf("ping\n");
   }
 
 };

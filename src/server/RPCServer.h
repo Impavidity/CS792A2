@@ -19,7 +19,6 @@
 #include <sys/stat.h>
 #include "NFS.h"
 #include "FileSystemInterface.h"
-#include "CacheServer.h"
 
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
