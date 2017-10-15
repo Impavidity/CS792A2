@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_constants.cpp.o"
   "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS_types.cpp.o"
   "CMakeFiles/server.dir/__/rpc/gen-cpp/NFS.cpp.o"
+  "CMakeFiles/server.dir/CacheServer.cpp.o"
+  "CMakeFiles/server.dir/VNodeServer.cpp.o"
   "server.pdb"
   "server"
 )

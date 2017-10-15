@@ -12,17 +12,18 @@
 #include <dirent.h>
 #include <errno.h>
 #include "NFS.h"
+#include "CacheServer.h"
 
 
 
 class FileSystemInterface {
 public:
   FileSystemInterface();
-  __ino_t check(const char *path);
-  int fuse_readdir(const char *path, std::vector<thrift_dir_entry> &entries);
-  int fuse_getattr(const char *path, struct stat* stbuf);
-  int fuse_mkdir(const char *path, mode_t mode);
-  int fuse_rmdir(const char *path);
+  __ino_t getInode(const char *path);
+  int readdir(const char *path, std::vector<thrift_dir_entry> &entries);
+  int getattr(const char *path, struct stat* stbuf);
+  int mkdir(const char *path, mode_t mode);
+  int rmdir(const char *path);
 
 
 };

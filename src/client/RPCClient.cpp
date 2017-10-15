@@ -27,7 +27,7 @@ void thrift2stat(thrift_stat &tstbuf, struct stat* stbuf) {
   stbuf->__glibc_reserved[2] = tstbuf.__glibc_reserved2;
 }
 
-RPCClient::RPCClient() {
+RPCClient::RPCClient() : client(NFSClient(this->protocol)){
   // Initialize here
 }
 
@@ -56,7 +56,7 @@ void RPCClient::startClient() {
     std::cout << "ERROR: " << tx.what() << std::endl;
   }
   thrift_file_handler fh;
-  client.nfs_mount(fh, rootPath);
+//  client.nfs_mount(fh, rootPath);
   if (fh.inode == 0) {
     std::cout << "Dir does not exist" << std::endl;
     exit(1);
@@ -73,7 +73,7 @@ int RPCClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, 
   std::string tpath(path);
   thrift_readdir_reply reply;
   try {
-    this->client.nfs_readdir(reply, tpath);
+//    this->client.nfs_readdir(reply, tpath);
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;
   }
@@ -89,7 +89,7 @@ int RPCClient::nfs_mkdir(const char *path, mode_t mode) {
   std::string tpath(path);
   int ret;
   try {
-    ret = this->client.nfs_mkdir(tpath, mode);
+//    ret = this->client.nfs_mkdir(tpath, mode);
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;
   }
@@ -100,7 +100,7 @@ int RPCClient::nfs_getattr(const char *path, struct stat *stbuf, struct fuse_fil
   std::string tpath(path);
   thrift_getattr_reply reply;
   try {
-    this->client.nfs_getattr(reply, tpath);
+//    this->client.nfs_getattr(reply, tpath);
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;
   }
@@ -114,7 +114,7 @@ int RPCClient::nfs_rmdir(const char *path) {
   std::string tpath(path);
   int ret;
   try {
-    ret = this->client.nfs_rmdir(tpath);
+//    ret = this->client.nfs_rmdir(tpath);
   } catch (TException& tx) {
     std::cout << "ERROR: " << tx.what() << std::endl;
   }
