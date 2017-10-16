@@ -12,9 +12,9 @@ std::string CacheServer::getPath(const thrift_file_handler &fh) {
         return ""; // TODO through exception instead
     }
     VNodeServer vn = vnodes[fh.inode];
-    if (vn.getGeneration() != fh.generation_number) {
-        return ""; // TODO through exception instead
-    }
+    //if (vn.getGeneration() != fh.generation_number) {
+    //    return ""; // TODO through exception instead
+    //}
     return vn.getPath();
 }
 
