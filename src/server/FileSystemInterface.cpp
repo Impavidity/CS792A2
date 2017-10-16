@@ -16,11 +16,11 @@ __ino_t FileSystemInterface::getInode(std::string path) {
 
 
 int FileSystemInterface::readdir(std::string path, std::vector<thrift_dir_entry> &entries) {
-    const char * fullPath = getFullPath(path).c_str();
+    std::string fullPath = getFullPath(path);
     DIR *dp;
     struct dirent *de;
 
-    dp = ::opendir(fullPath);
+    dp = ::opendir(fullPath.c_str());
     if (dp == NULL)
         return -ENOENT;
 
@@ -36,12 +36,10 @@ int FileSystemInterface::readdir(std::string path, std::vector<thrift_dir_entry>
 }
 
 int FileSystemInterface::getattr(std::string path, thrift_stat &tstbuf) {
-    const char * fullPath = getFullPath(path).c_str();
-
+    std::string fullPath = getFullPath(path);
     int ret;
     struct stat stbuf;
-    ret = ::lstat(fullPath, &stbuf);
-    std::cout << " In system interface " << fullPath << stbuf.st_ino << std::endl;
+    ret = ::lstat(fullPath.c_str(), &stbuf);
     statToThrift(&stbuf, tstbuf);
     if (ret == -1)
         ret = -ENOENT;
@@ -49,18 +47,18 @@ int FileSystemInterface::getattr(std::string path, thrift_stat &tstbuf) {
 }
 
 int FileSystemInterface::mkdir(std::string path, mode_t mode) {
-    const char * fullPath = getFullPath(path).c_str();
+    std::string fullPath = getFullPath(path);
     int ret;
-    ret = ::mkdir(fullPath, mode);
+    ret = ::mkdir(fullPath.c_str(), mode);
     if (ret == -1)
         ret = -ENOENT;
     return ret;
 }
 
 int FileSystemInterface::rmdir(std::string path) {
-    const char * fullPath = getFullPath(path).c_str();
+    std::string fullPath = getFullPath(path);
     int ret;
-    ret = ::rmdir(fullPath);
+    ret = ::rmdir(fullPath.c_str());
     if (ret == -1)
         ret = -ENOENT;
     return ret;
