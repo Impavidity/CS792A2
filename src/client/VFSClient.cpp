@@ -27,8 +27,9 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
   std::string tpath(path);
   std::cout << "in getattr " << tpath << std::endl;
   VNodeClient* cache_vnode = nullptr;//= cache.checkPath(tpath);
+  VNodeClient vnode;
   if (cache_vnode== nullptr || cache_vnode->getattr_state == 0) {
-    VNodeClient vnode = VNodeClient::getattr(&root, tpath);
+    vnode = VNodeClient::getattr(&root, tpath);
     vnode.getattr_state = 1;
     cache.insertPath(tpath, vnode);
     cache_vnode = &vnode;
@@ -36,8 +37,8 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
   if (cache_vnode->getattr_reply.ret > -1) {
     thrift2stat(cache_vnode->getattr_reply.tstbuf, stbuf);
   }
-  std::cout << cache_vnode->getattr_reply << std::endl;
-  std::cout << "get attr reply " << "return value " << cache_vnode->getattr_reply.ret << " inode number "  << cache_vnode->fh.inode << std::endl;
+  //std::cout << cache_vnode->getattr_reply << std::endl;
+  //std::cout << "get attr reply " << "return value " << cache_vnode->getattr_reply.ret << " inode number "  << cache_vnode->fh.inode << std::endl;
   return cache_vnode->getattr_reply.ret;
 
   //ret = rpcClient.nfs_getattr(path, stbuf, fi);
@@ -49,8 +50,9 @@ int VFSClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, 
   std::string tpath(path);
   std::cout << "in readdir " << tpath << std::endl;
   VNodeClient* cache_vnode = nullptr;//= cache.checkPath(path);
+  VNodeClient vnode;
   if (cache_vnode== nullptr || cache_vnode->readdir_state ==0) {
-    VNodeClient vnode = VNodeClient::readdir(&root, tpath);
+    vnode = VNodeClient::readdir(&root, tpath);
     vnode.readdir_state = 1;
     cache.insertPath(tpath, vnode);
     cache_vnode = &vnode;
@@ -78,7 +80,7 @@ int VFSClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, 
 //  ret = rpcClient.nfs_mkdir(path, mode);
 //  return ret;
 //}
-//
+
 //int VFSClient::nfs_rmdir(const char *path) {
 //  int ret;
 //  std::cout << "In RMDIR" << path << std::endl;
