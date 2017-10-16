@@ -40,6 +40,7 @@ int FileSystemInterface::getattr(std::string path, thrift_stat &tstbuf) {
     int ret;
     struct stat stbuf;
     ret = ::lstat(fullPath, &stbuf);
+    statToThrift(&stbuf, tstbuf);
     if (ret == -1)
         ret = -ENOENT;
     return ret;
