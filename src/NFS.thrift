@@ -51,12 +51,17 @@ struct thrift_file_handler {
     3: i64 generation_number;
 }
 
+struct thrift_file_handler_reply {
+    1: i32 ret;
+    2: thrift_file_handler fh;
+}
+
 service NFS {
     thrift_file_handler root();
     thrift_file_handler mount(1:string path);
     thrift_file_handler lookup(1:thrift_file_handler fh, 2:string name);
     thrift_getattr_reply getattr(1:thrift_file_handler fh);
     thrift_readdir_reply readdir(1:thrift_file_handler fh);
-    i32 mkdir(1:thrift_file_handler fh, 2:string name);
+    thrift_file_handler_reply mkdir(1:thrift_file_handler fh, 2:string name);
     i32 rmdir(1:thrift_file_handler fh);
 }
