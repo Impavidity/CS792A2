@@ -13,11 +13,11 @@ static VFSClient vfsClient;
 struct nfs_fuse_operations : fuse_operations {
   nfs_fuse_operations () {
     init = vfsClient.nfs_init;
-    getattr = vfsClient.nfs_getattr;
+    getattr = vfsClient.getattr;
     readdir = vfsClient.nfs_readdir;
-    mkdir = vfsClient.nfs_mkdir;
-    rmdir = vfsClient.nfs_rmdir;
-    .create = nfs_create,
+    //mkdir = vfsClient.nfs_mkdir;
+    //rmdir = vfsClient.nfs_rmdir;
+    //.create = nfs_create,
   }
 };
 
@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
   vfsClient.rpcClient.setHostName(argv[argc-2]);
   vfsClient.rpcClient.setRootPath(argv[argc-1]);
   vfsClient.rpcClient.startClient();
+  vfsClient.mount(argv[argc-1]);
   umask(0);
   return fuse_main(argc-3, argv, &nfs_oper, NULL);
 }

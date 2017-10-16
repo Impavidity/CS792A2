@@ -35,15 +35,40 @@ public:
   void setPort(int port);
   void setRootPath(char* rootPath);
   void startClient();
-  int nfs_create(const char* path, mode_t mode, struct fuse_file_info* fi);
-  int nfs_readdir(const char* path, void * buf, fuse_fill_dir_t filler, off_t offset,
-                  struct fuse_file_info *fi, enum fuse_readdir_flags flags);
-  int nfs_mkdir(const char* path, mode_t mode);
-  int nfs_rmdir(const char* path);
-  int nfs_getattr(const char* path, struct stat* stbuf, struct fuse_file_info *fi);
+  thrift_file_handler mount(const char* path);
+  thrift_file_handler lookup(thrift_file_handler fh, std::string path);
+  thrift_getattr_reply nfs_getattr(thrift_file_handler fh);
+  thrift_readdir_reply nfs_readdir(thrift_file_handler);
+//  int nfs_create(const char* path, mode_t mode, struct fuse_file_info* fi);
+//
+//  int nfs_mkdir(const char* path, mode_t mode);
+//  int nfs_rmdir(const char* path);
+
 
 };
 
+static void thrift2stat(thrift_stat &tstbuf, struct stat* stbuf) {
+  stbuf->st_dev = (__dev_t) tstbuf.st_dev;
+  stbuf->st_ino = (__ino_t) tstbuf.st_ino;
+  stbuf->st_nlink = (__nlink_t) tstbuf.st_nlink;
+  stbuf->st_mode = (__mode_t) tstbuf.st_mode;
+  stbuf->st_uid = (__uid_t) tstbuf.st_uid;
+  stbuf->st_gid = (__gid_t) tstbuf.st_gid;
+  stbuf->__pad0 = tstbuf.__pad0;
+  stbuf->st_rdev = (__dev_t) tstbuf.st_rdev;
+  stbuf->st_size = tstbuf.st_size;
+  stbuf->st_blksize = tstbuf.st_blksize;
+  stbuf->st_blocks = tstbuf.st_blocks;
+  stbuf->st_atim.tv_nsec = tstbuf.st_atim.tv_nsec;
+  stbuf->st_atim.tv_sec = tstbuf.st_atim.tv_sec;
+  stbuf->st_mtim.tv_nsec = tstbuf.st_mtim.tv_nsec;
+  stbuf->st_mtim.tv_sec = tstbuf.st_mtim.tv_sec;
+  stbuf->st_ctim.tv_nsec = tstbuf.st_ctim.tv_nsec;
+  stbuf->st_ctim.tv_sec = tstbuf.st_ctim.tv_sec;
+  stbuf->__glibc_reserved[0] = tstbuf.__glibc_reserved0;
+  stbuf->__glibc_reserved[1] = tstbuf.__glibc_reserved1;
+  stbuf->__glibc_reserved[2] = tstbuf.__glibc_reserved2;
+}
 
 
 
