@@ -16,9 +16,11 @@ private:
     int generation;
     template<class Archive> void serialize(Archive & ar, const unsigned int version);
 public:
-    VNodeServer(){};
+    VNodeServer(){generation = std::rand();};
     VNodeServer(std::string path, int gen);
     explicit VNodeServer(std::string path);
+    VNodeServer(const VNodeServer& vn);
+    VNodeServer& operator=(const VNodeServer& vn);
     int getGeneration();
     std::string getPath();
 };

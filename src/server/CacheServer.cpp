@@ -24,14 +24,20 @@ std::string CacheServer::getPath(const thrift_file_handler &fh) {
  * @param inode
  * @param fullPath
  */
-// TODO refactor into two methods
-void CacheServer::getFileHandler(thrift_file_handler &fh, int64_t inode, std::string fullPath) {
-    VNodeServer vn;
+void CacheServer::get(thrift_file_handler &fh, int64_t inode) {
     if (vnodes.find(inode) == vnodes.end()) {
-        vn = VNodeServer(fullPath);
-        vnodes[inode] = vn;
+        fh.inode = 0; // TODO through exception instead
+        return;
     }
-    vn = vnodes[fh.inode];
+    VNodeServer vn = vnodes[inode];
+    fh.inode = inode;
+    fh.generation_number = vn.getGeneration();
+    fh.system_id = getSystemId();
+}
+
+void CacheServer::add(thrift_file_handler &fh, int64_t inode, std::string fullPath) {
+    VNodeServer vn(fullPath);
+    vnodes[inode] = vn;
     fh.inode = inode;
     fh.generation_number = vn.getGeneration();
     fh.system_id = getSystemId();
