@@ -39,6 +39,7 @@ public:
         if (inode != 0) {
             cacheServer.getFileHandler(_return, inode, relPath);
         }
+        printf("lookup\n");
     }
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
@@ -49,14 +50,24 @@ public:
         printf("readdir\n");
     }
 
-    int32_t mkdir(const thrift_file_handler &fh, const std::string &name) {
-        // Your implementation goes here
+    void mkdir(thrift_file_handler_reply& _return, const thrift_file_handler& fh, const std::string& name) {
+        std::string relPath = cacheServer.getPath(fh);
+        relPath += '/' + name;
+        _return.ret = fileSystemInterface.mkdir(relPath, 1);
+        __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
+        if (inode != 0) {
+            cacheServer.getFileHandler(_return.fh, inode, relPath);
+        }
         printf("mkdir\n");
     }
 
     int32_t rmdir(const thrift_file_handler &fh) {
         // Your implementation goes here
+        std::string relPath = cacheServer.getPath(fh);
+        int32_t ret = fileSystemInterface.rmdir(relPath);
+        cacheServer.remove(fh); // TODO handle errors
         printf("rmdir\n");
+        return ret;
     }
 
     void getattr(thrift_getattr_reply &_return, const thrift_file_handler &fh) {

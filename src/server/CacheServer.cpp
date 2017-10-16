@@ -45,3 +45,7 @@ int32_t CacheServer::getSystemId() {
     // TODO read it from cache
     return systemId;
 }
+
+void CacheServer::remove(const thrift_file_handler &fh) {
+    vnodes.erase(fh.inode);
+}
