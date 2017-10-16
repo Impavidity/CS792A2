@@ -17,7 +17,8 @@ public:
     CacheServer(){};
     std::string getPath(const thrift_file_handler& fh);
     int32_t getSystemId();
-    void getFileHandler(thrift_file_handler& fh, int64_t inode, std::string fullPath);
+    void get(thrift_file_handler &fh, int64_t inode);
+    void add(thrift_file_handler &fh, int64_t inode, std::string fullPath);
     void remove(const thrift_file_handler& fh);
 };
 

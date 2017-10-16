@@ -18,8 +18,8 @@ private:
 
 public:
     NFSHandler(std::string root) : fileSystemInterface(root) {
-        __ino_t inode = fileSystemInterface.getInode("/");
-        cacheServer.getFileHandler(rootFh, inode, "/");
+        __ino_t inode = fileSystemInterface.getInode("");
+        cacheServer.add(rootFh, inode, "");
     }
 
     void root(thrift_file_handler& _return) {
@@ -37,9 +37,12 @@ public:
         relPath += '/' + path;
         __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
         if (inode != 0) {
-            cacheServer.getFileHandler(_return, inode, relPath);
+            cacheServer.get(_return, inode);
+            if (_return.inode == 0) {
+                cacheServer.add(_return, inode, relPath);
+            }
         }
-        printf("lookup\n");
+        std::cout << "lookup " << path << std::endl;
     }
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
@@ -56,7 +59,7 @@ public:
         _return.ret = fileSystemInterface.mkdir(relPath, 1);
         __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
         if (inode != 0) {
-            cacheServer.getFileHandler(_return.fh, inode, relPath);
+            cacheServer.add(_return.fh, inode, relPath);
         }
         printf("mkdir\n");
     }

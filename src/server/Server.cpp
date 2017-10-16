@@ -5,7 +5,7 @@ int main(int argc, char **argv) {
         std::cout << "Please specify <port> <mount_point>" << std::endl;
         exit(0);
     }
-
+    std::srand(std::time(0));
     int port = atoi(argv[1]);
     std::string mountPoint = argv[2];
     RPCServer server(port, mountPoint);

@@ -27,3 +27,14 @@ void VNodeServer::serialize(Archive &ar, const unsigned int version) {
     ar & abs_path;
     ar & generation;
 }
+
+VNodeServer::VNodeServer(const VNodeServer &vn) {
+    generation = vn.generation;
+    abs_path = vn.abs_path;
+}
+
+VNodeServer& VNodeServer::operator=(const VNodeServer &vn) {
+    generation = vn.generation;
+    abs_path = vn.abs_path;
+    return *this;
+}
