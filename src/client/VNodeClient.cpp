@@ -36,7 +36,6 @@ VNodeClient::VNodeClient(RPCClient *rpcClient) {
 VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
   std::vector<std::string> paths = split(path, '/');
   std::cout << "Full Path for lookup " << path << " The size is " << paths.size() <<std::endl;
-  for (auto token : paths) std::cout << token << std::endl;
   thrift_file_handler cur_fh = vnode->fh;
   for (std::string token: paths) {
     if (token == std::string("")) continue;
@@ -47,15 +46,13 @@ VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
   }
   VNodeClient re_vnode = VNodeClient(rpcClient);
   re_vnode.fh = cur_fh;
-  std::cout << cur_fh.inode << std::endl;
-  std::cout << "Root file handler "<< vnode->fh.inode << std::endl;
   return re_vnode;
 }
 
 
 VNodeClient VNodeClient::getattr(VNodeClient *vnode, std::string path) {
   VNodeClient lookup_vnode = lookup(vnode, path);
-  std::cout << "In the getattr" << lookup_vnode.fh.inode << std::endl;
+  std::cout << "In the getattr " << lookup_vnode.fh.inode << std::endl;
   lookup_vnode.getattr_reply = rpcClient->nfs_getattr(lookup_vnode.fh);
   return lookup_vnode;
 }

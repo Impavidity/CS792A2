@@ -72,6 +72,10 @@ public:
 
     void getattr(thrift_getattr_reply &_return, const thrift_file_handler &fh) {
         std::string path = cacheServer.getPath(fh);
+      std::cout << "Caching ----------------------------------" << std::endl;
+      for (auto pair : cacheServer.vnodes) {
+        std::cout << pair.first << "------" << pair.second.getPath() << std::endl;
+      }
         int ret = fileSystemInterface.getattr(path, _return.tstbuf);
         _return.ret = ret;
         printf("getattr\n");

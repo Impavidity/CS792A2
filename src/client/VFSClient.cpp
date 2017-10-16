@@ -36,7 +36,8 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
   if (cache_vnode->getattr_reply.ret > -1) {
     thrift2stat(cache_vnode->getattr_reply.tstbuf, stbuf);
   }
-  std::cout << "get attr reply" << cache_vnode->getattr_reply.ret << std::endl;
+  std::cout << cache_vnode->getattr_reply << std::endl;
+  std::cout << "get attr reply " << "return value " << cache_vnode->getattr_reply.ret << " inode number "  << cache_vnode->fh.inode << std::endl;
   return cache_vnode->getattr_reply.ret;
 
   //ret = rpcClient.nfs_getattr(path, stbuf, fi);

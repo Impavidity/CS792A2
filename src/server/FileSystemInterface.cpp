@@ -37,9 +37,11 @@ int FileSystemInterface::readdir(std::string path, std::vector<thrift_dir_entry>
 
 int FileSystemInterface::getattr(std::string path, thrift_stat &tstbuf) {
     const char * fullPath = getFullPath(path).c_str();
+
     int ret;
     struct stat stbuf;
     ret = ::lstat(fullPath, &stbuf);
+    std::cout << " In system interface " << fullPath << stbuf.st_ino << std::endl;
     statToThrift(&stbuf, tstbuf);
     if (ret == -1)
         ret = -ENOENT;

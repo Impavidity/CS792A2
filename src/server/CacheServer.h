@@ -10,10 +10,10 @@
 #include "NFS.h"
 
 class CacheServer {
-private:
+public:
     std::unordered_map<int64_t, VNodeServer> vnodes;
     int32_t systemId;
-public:
+
     CacheServer(){};
     std::string getPath(const thrift_file_handler& fh);
     int32_t getSystemId();
