@@ -6,59 +6,46 @@
 #include "RPCServer.h"
 
 
-void stat2thrift(struct stat *stbuf, thrift_stat &tstbuf) {
-    tstbuf.st_dev = (int64_t) stbuf->st_dev;
-    tstbuf.st_ino = (int64_t) stbuf->st_ino;
-    tstbuf.st_nlink = (int64_t) stbuf->st_nlink;
-    tstbuf.st_mode = stbuf->st_mode;
-    tstbuf.st_uid = stbuf->st_uid;
-    tstbuf.st_gid = stbuf->st_gid;
-    tstbuf.__pad0 = stbuf->__pad0;
-    tstbuf.st_rdev = (int64_t) stbuf->st_rdev;
-    tstbuf.st_size = (int64_t) stbuf->st_size;
-    tstbuf.st_blksize = (int64_t) stbuf->st_blksize;
-    tstbuf.st_blocks = (int64_t) stbuf->st_blocks;
-    tstbuf.st_atim.tv_nsec = (int64_t) stbuf->st_atim.tv_nsec;
-    tstbuf.st_atim.tv_sec = (int64_t) stbuf->st_atim.tv_sec;
-    tstbuf.st_mtim.tv_nsec = (int64_t) stbuf->st_mtim.tv_nsec;
-    tstbuf.st_mtim.tv_sec = (int64_t) stbuf->st_mtim.tv_sec;
-    tstbuf.st_ctim.tv_nsec = (int64_t) stbuf->st_ctim.tv_nsec;
-    tstbuf.st_ctim.tv_sec = (int64_t) stbuf->st_ctim.tv_sec;
-    tstbuf.__glibc_reserved0 = (int64_t) stbuf->__glibc_reserved[0];
-    tstbuf.__glibc_reserved1 = (int64_t) stbuf->__glibc_reserved[1];
-    tstbuf.__glibc_reserved2 = (int64_t) stbuf->__glibc_reserved[2];
-}
-
-
 using boost::shared_ptr;
 
 class NFSHandler : virtual public NFSIf {
 private:
     CacheServer cacheServer;
-public:
 
     FileSystemInterface fileSystemInterface;
-    std::string prefix;
 
-    NFSHandler() {
+    thrift_file_handler rootFh;
 
+public:
+    NFSHandler(std::string root) : fileSystemInterface(root) {
+        __ino_t inode = fileSystemInterface.getInode("/");
+        cacheServer.getFileHandler(rootFh, inode, "/");
+    }
+
+    void root(thrift_file_handler& _return) {
+        _return = rootFh;
+        printf("root\n");
     }
 
     void mount(thrift_file_handler &_return, const std::string &path) {
-        printf("nfs_mount\n");
-        this->prefix = path;
-        __ino_t inode = fileSystemInterface.getInode(path.c_str());
-        // use 1 in the case
-        _return.system_id = 1;
-        _return.generation_number = 1;
-        _return.inode = (int64_t) inode;
+        _return = rootFh;
+        printf("mount\n");
+    }
+
+    void lookup(thrift_file_handler &_return, const thrift_file_handler &fh, const std::string &path) {
+        std::string relPath = cacheServer.getPath(fh);
+        relPath += '/' + path;
+        __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
+        if (inode != 0) {
+            cacheServer.getFileHandler(_return, inode, relPath);
+        }
     }
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
-        // Your implementation goes here
-//    std::vector<thrift_dir_entry> entries;
-//    _return.ret = fileSystemInterface.readdir((prefix+tpath).c_str(), entries);
-//    _return.dir_entries = entries;
+        std::string path = cacheServer.getPath(fh);
+        std::vector<thrift_dir_entry> entries;
+        _return.ret = fileSystemInterface.readdir(path, entries);
+        _return.dir_entries = entries;
         printf("readdir\n");
     }
 
@@ -73,30 +60,19 @@ public:
     }
 
     void getattr(thrift_getattr_reply &_return, const thrift_file_handler &fh) {
-        // Your implementation goes here
-        struct stat stbuf;
-        //int ret = lstat((prefix + tpath).c_str(), &stbuf);
-        //int ret = fileSystemInterface.getattr((prefix+tpath).c_str(), &stbuf);
-        //_return.ret = ret;
-        //stat2thrift(&stbuf, _return.tstbuf);
-    }
-
-    void lookup(thrift_file_handler &_return, const thrift_file_handler &fh, const std::string &path) {
-        std::string absPath = cacheServer.getPath(fh);
-        std::string newPath = (absPath + '/' + path);
-        __ino_t inode = fileSystemInterface.getInode(newPath.c_str());
-        if (inode != 0) {
-            cacheServer.getFileHandler(_return, inode, newPath);
-        }
+        std::string path = cacheServer.getPath(fh);
+        int ret = fileSystemInterface.getattr(path, _return.tstbuf);
+        _return.ret = ret;
+        printf("getattr\n");
     }
 
 
 };
 
-RPCServer::RPCServer(int port) {
+RPCServer::RPCServer(int port, std::string mountRoot) {
 
 
-    shared_ptr<NFSHandler> handler(new NFSHandler());
+    shared_ptr<NFSHandler> handler(new NFSHandler(mountRoot));
     this->processor = shared_ptr<TProcessor>(new NFSProcessor(handler));
     this->serverTransport = shared_ptr<TServerTransport>(new TServerSocket(port));
     this->transportFactory = shared_ptr<TTransportFactory>(new TBufferedTransportFactory());

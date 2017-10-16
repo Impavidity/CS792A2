@@ -5,7 +5,7 @@
 #include "CacheServer.h"
 
 std::string CacheServer::getPath(const thrift_file_handler &fh) {
-    if (fh.system_id != server_id) {
+    if (fh.system_id != systemId) {
         return ""; // TODO through exception instead
     }
     if (vnodes.find(fh.inode) == vnodes.end()) {
@@ -34,5 +34,14 @@ void CacheServer::getFileHandler(thrift_file_handler &fh, int64_t inode, std::st
     vn = vnodes[fh.inode];
     fh.inode = inode;
     fh.generation_number = vn.getGeneration();
-    fh.system_id = server_id;
+    fh.system_id = getSystemId();
+}
+
+int32_t CacheServer::getSystemId() {
+    // TODO remove this
+    if (systemId == 0) {
+        systemId = rand(); // TODO use another random function
+    }
+    // TODO read it from cache
+    return systemId;
 }

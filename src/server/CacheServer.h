@@ -12,10 +12,11 @@
 class CacheServer {
 private:
     std::unordered_map<int64_t, VNodeServer> vnodes;
-    int server_id;
+    int32_t systemId;
 public:
     CacheServer(){};
     std::string getPath(const thrift_file_handler& fh);
+    int32_t getSystemId();
     void getFileHandler(thrift_file_handler& fh, int64_t inode, std::string fullPath);
 };
 

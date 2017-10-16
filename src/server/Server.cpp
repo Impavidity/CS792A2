@@ -1,17 +1,14 @@
-//
-// Created by shipeng on 17-10-8.
-//
-
 #include "RPCServer.h"
 
 int main(int argc, char **argv) {
-  if (argc != 2) {
-    std::cout << "Please specify <port>" << std::endl;
-    exit(0);
-  }
+    if (argc < 3) {
+        std::cout << "Please specify <port> <mount_point>" << std::endl;
+        exit(0);
+    }
 
-  int port = atoi(argv[1]);
-  RPCServer server(port);
-  server.start();
-  return 0;
+    int port = atoi(argv[1]);
+    std::string mountPoint = argv[2];
+    RPCServer server(port, mountPoint);
+    server.start();
+    return 0;
 }
