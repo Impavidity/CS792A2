@@ -10,11 +10,6 @@ struct thrift_readdir_reply {
     2: list<thrift_dir_entry> dir_entries;
 }
 
-struct thrift_file_info {
-    1: i32 flags;
-    2: i64 fh;
-}
-
 struct thrift_timespec {
     1: i64 tv_sec;
     2: i64 tv_nsec;
@@ -56,6 +51,11 @@ struct thrift_file_handler_reply {
     2: thrift_file_handler fh;
 }
 
+struct thrift_read_reply {
+    1: i32 ret;
+    2: binary buf;
+}
+
 service NFS {
     thrift_file_handler root();
     thrift_file_handler mount(1:string path);
@@ -64,4 +64,10 @@ service NFS {
     thrift_readdir_reply readdir(1:thrift_file_handler fh);
     thrift_file_handler_reply mkdir(1:thrift_file_handler fh, 2:string name);
     i32 rmdir(1:thrift_file_handler fh);
+    i32 unlink(1:thrift_file_handler fh);
+    i32 rename(1:thrift_file_handler fh, 2:string toname);
+    thrift_file_handler_reply create(1:thrift_file_handler fh, 2:string name);
+    thrift_read_reply read(1:thrift_file_handler fh, 2:i64 size, 3:i64 offset);
+    i32 write(1:thrift_file_handler fh, 2:binary buf, 3:i64 size, 4:i64 offset);
+    i32 fsync(1:thrift_file_handler fh);
 }

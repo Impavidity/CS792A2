@@ -4,7 +4,7 @@ FileSystemInterface::FileSystemInterface() {
 
 }
 
-__ino_t FileSystemInterface::getInode(std::string path) {
+__ino_t FileSystemInterface::getInode(const std::string& path) {
     std::string fullPath = getFullPath(path);
     struct stat sb;
     if (::stat(fullPath.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode)) {
@@ -15,7 +15,7 @@ __ino_t FileSystemInterface::getInode(std::string path) {
 }
 
 
-int FileSystemInterface::readdir(std::string path, std::vector<thrift_dir_entry> &entries) {
+int FileSystemInterface::readdir(const std::string& path, std::vector<thrift_dir_entry> &entries) {
     std::string fullPath = getFullPath(path);
     DIR *dp;
     struct dirent *de;
@@ -35,7 +35,7 @@ int FileSystemInterface::readdir(std::string path, std::vector<thrift_dir_entry>
     return 0;
 }
 
-int FileSystemInterface::getattr(std::string path, thrift_stat &tstbuf) {
+int FileSystemInterface::getattr(const std::string& path, thrift_stat &tstbuf) {
     std::string fullPath = getFullPath(path);
     int ret;
     struct stat stbuf;
@@ -46,7 +46,7 @@ int FileSystemInterface::getattr(std::string path, thrift_stat &tstbuf) {
     return ret;
 }
 
-int FileSystemInterface::mkdir(std::string path, mode_t mode) {
+int FileSystemInterface::mkdir(const std::string& path, mode_t mode) {
     std::string fullPath = getFullPath(path);
     int ret;
     ret = ::mkdir(fullPath.c_str(), mode);
@@ -55,7 +55,7 @@ int FileSystemInterface::mkdir(std::string path, mode_t mode) {
     return ret;
 }
 
-int FileSystemInterface::rmdir(std::string path) {
+int FileSystemInterface::rmdir(const std::string& path) {
     std::string fullPath = getFullPath(path);
     int ret;
     ret = ::rmdir(fullPath.c_str());
@@ -64,12 +64,55 @@ int FileSystemInterface::rmdir(std::string path) {
     return ret;
 }
 
-FileSystemInterface::FileSystemInterface(std::string root) {
+FileSystemInterface::FileSystemInterface(const std::string& root) {
     this->root = root;
 }
 
-std::string FileSystemInterface::getFullPath(std::string path) {
+std::string FileSystemInterface::getFullPath(const std::string& path) {
     return this->root + path;
+}
+
+int32_t FileSystemInterface::unlink(const std::string& path) {
+    std::string fullPath = getFullPath(path);
+    int res;
+    res = ::unlink(fullPath.c_str());
+    if (res == -1)
+        return -errno;
+    return 0;
+}
+
+int32_t FileSystemInterface::rename(const std::string& path, const std::string &toname) {
+    std::string fullPath = getFullPath(path);
+    // TODO implement
+    return 0;
+}
+
+int32_t FileSystemInterface::create(const std::string& path) {
+    std::string fullPath = getFullPath(path);
+    std::ofstream os(path, std::ios::binary);
+    os.close();
+    return 0;
+}
+
+void FileSystemInterface::read(thrift_read_reply &_return, const std::string& path, const int64_t size, const int64_t offset) {
+    std::string fullPath = getFullPath(path);
+    std::ifstream is(path, std::ios::binary);
+    is.seekg(offset, std::ios::beg);
+    std::string buf(size, '\0');
+    is.read(&buf[0], size);
+    _return.buf = buf;
+    _return.ret = is.gcount();
+    is.close();
+}
+
+int32_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
+    std::string fullPath = getFullPath(path);
+    std::ofstream os(path, std::ios::binary);
+    os.seekp(offset, std::ios::beg);
+    os.write(&buf[0], size);
+    int32_t ret = os.tellp() - offset;
+    os.close();
+    return ret;
 }
 
 void FileSystemInterface::statToThrift(struct stat *stbuf, thrift_stat &tstbuf) {
