@@ -57,9 +57,9 @@ struct thrift_read_reply {
 }
 
 service NFS {
-    thrift_file_handler root();
-    thrift_file_handler mount(1:string path);
-    thrift_file_handler lookup(1:thrift_file_handler fh, 2:string name);
+    thrift_file_handler_reply root();
+    thrift_file_handler_reply mount(1:string path);
+    thrift_file_handler_reply lookup(1:thrift_file_handler fh, 2:string name);
     thrift_getattr_reply getattr(1:thrift_file_handler fh);
     thrift_readdir_reply readdir(1:thrift_file_handler fh);
     thrift_file_handler_reply mkdir(1:thrift_file_handler fh, 2:string name);
