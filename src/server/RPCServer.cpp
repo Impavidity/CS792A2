@@ -98,6 +98,7 @@ public:
         } catch (int e){
             _return.ret = -ENONET;
         }
+      std::cout << "get attr return " << _return << std::endl;
     }
 
     int32_t unlink(const thrift_file_handler &fh) {
@@ -148,6 +149,7 @@ public:
         } catch (int e) {
             _return.ret = -ENONET;
         }
+      std::cout << "Return In Read " << _return << std::endl;
     }
 
     int32_t write(const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {

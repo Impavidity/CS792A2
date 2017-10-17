@@ -25,6 +25,7 @@ public:
   thrift_file_handler fh;
   thrift_read_reply read_reply;
   int read_state;
+  int open_state;
 
 
   // Specify static function for VNode. Generally pass the VNode pointer as one argument
@@ -33,6 +34,7 @@ public:
   static VNodeClient readdir(VNodeClient* vnode, std::string path);
   static VNodeClient mkdir(VNodeClient* vnode, std::string path, std::string name);
   static VNodeClient rmdir(VNodeClient* vnode, std::string path);
+  static VNodeClient open(VNodeClient* vnode, std::string path);
   static VNodeClient read(VNodeClient* vnode, std::string path, int64_t size, int64_t offset);
   static VNodeClient write(VNodeClient* vnode,std::string path);
 

@@ -42,6 +42,7 @@ VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
     cur_fh = rpcClient->lookup(cur_fh, token).fh;
     if (cur_fh.inode == 0) {
       std::cout << "Dir/File does not exist during lookup" << std::endl;
+      break;
     }
   }
   VNodeClient re_vnode = VNodeClient(rpcClient);
@@ -83,6 +84,17 @@ VNodeClient VNodeClient::rmdir(VNodeClient *vnode, std::string path) {
 VNodeClient VNodeClient::read(VNodeClient *vnode, std::string path, int64_t size, int64_t offset) {
   VNodeClient lookup_vnode = lookup(vnode, path);
   lookup_vnode.read_reply = rpcClient->nfs_read(lookup_vnode.fh, size, offset);
+  return lookup_vnode;
+}
+
+VNodeClient VNodeClient::open(VNodeClient *vnode, std::string path) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  if (lookup_vnode.fh.inode == 0) {
+    lookup_vnode.open_state = -ENOENT;
+  } else {
+    // Check Access only?
+    lookup_vnode.open_state = 0;
+  }
   return lookup_vnode;
 }
 

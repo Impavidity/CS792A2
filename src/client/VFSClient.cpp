@@ -101,6 +101,7 @@ int VFSClient::nfs_mkdir(const char *path, mode_t mode) {
   } else {
     vnode = VNodeClient::mkdir(&root, first_part, second_part);
   }
+  // TODO : cache
   return vnode.mkdir_reply.ret;
 }
 
@@ -114,6 +115,7 @@ int VFSClient::nfs_rmdir(const char *path) {
   } else {
     vnode = VNodeClient::rmdir(&root, tpath);
   }
+  // TODO: refine cache
   if (vnode.rmdir_reply > -1) {
     cache.removePath(tpath);
   };
@@ -135,8 +137,16 @@ void* VFSClient::nfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg) 
 }
 
 int VFSClient::nfs_open(const char *path, struct fuse_file_info *fi) {
-  // TODO : Handle different mode of file
-  return 0;
+  std::string tpath(path);
+  std::cout << "VFSClient::nfs_open : path " << tpath << std::endl;
+  VNodeClient* cache_vnode = cache.checkPath(tpath);
+  VNodeClient vnode;
+  // TODO: cache
+  // if (cache_vnode != nullptr)
+  if (cache_vnode == nullptr) {
+    vnode = VNodeClient::open(&root, tpath);
+  }
+  return vnode.open_state;
 }
 
 int VFSClient::nfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
@@ -156,5 +166,18 @@ int VFSClient::nfs_read(const char *path, char *buf, size_t size, off_t offset, 
     cache.insertPath(tpath, vnode);
     cache_vnode = &vnode;
   }
+  if (cache_vnode->read_reply.ret > -1) {
+    int64_t len = cache_vnode->read_reply.buf.size();
+    if (offset < len) {
+      if (offset + size > len)
+        size = (size_t) (len - offset);
+      memcpy(buf, cache_vnode->read_reply.buf.c_str(), size);
+    } else {
+      size = 0;
+    }
+  } else {
+    size = 0;
+  }
+  return (int) size;
 }
 

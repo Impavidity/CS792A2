@@ -96,7 +96,7 @@ int32_t FileSystemInterface::create(const std::string& path) {
 
 void FileSystemInterface::read(thrift_read_reply &_return, const std::string& path, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
-    std::ifstream is(path, std::ios::binary);
+    std::ifstream is(fullPath, std::ios::binary);
     is.seekg(offset, std::ios::beg);
     std::string buf(size, '\0');
     is.read(&buf[0], size);
@@ -107,7 +107,7 @@ void FileSystemInterface::read(thrift_read_reply &_return, const std::string& pa
 
 int32_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
-    std::ofstream os(path, std::ios::binary);
+    std::ofstream os(fullPath, std::ios::binary);
     os.seekp(offset, std::ios::beg);
     os.write(&buf[0], size);
     int32_t ret = os.tellp() - offset;
