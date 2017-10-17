@@ -25,17 +25,17 @@ std::string CacheServer::getPath(const thrift_file_handler &fh) {
  * @param fullPath
  */
 void CacheServer::get(thrift_file_handler &fh, int64_t inode) {
-    if (vnodes.find(inode) == vnodes.end()) {
+    auto vn = vnodes.find(inode);
+    if (vn == vnodes.end()) {
         fh.inode = 0; // TODO through exception instead
         return;
     }
-    VNodeServer vn = vnodes[inode];
     fh.inode = inode;
-    fh.generation_number = vn.getGeneration();
+    fh.generation_number = vn->second.getGeneration();
     fh.system_id = getSystemId();
 }
 
-void CacheServer::add(thrift_file_handler &fh, int64_t inode, std::string fullPath) {
+void CacheServer::add(thrift_file_handler &fh, int64_t inode, const std::string& fullPath) {
     VNodeServer vn(fullPath);
     vnodes[inode] = vn;
     fh.inode = inode;
@@ -54,4 +54,13 @@ int32_t CacheServer::getSystemId() {
 
 void CacheServer::remove(const thrift_file_handler &fh) {
     vnodes.erase(fh.inode);
+}
+
+void CacheServer::rename(const thrift_file_handler &fh, const std::string &name) {
+    auto vn = vnodes.find(fh.inode);
+    if (vn == vnodes.end()) {
+        // TODO through exception instead
+        return;
+    }
+    // TODO implement
 }

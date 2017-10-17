@@ -54,20 +54,19 @@ public:
     }
 
     void mkdir(thrift_file_handler_reply &_return, const thrift_file_handler &fh, const std::string &name) {
-        std::string relPath = cacheServer.getPath(fh);
-        relPath += '/' + name;
-        _return.ret = fileSystemInterface.mkdir(relPath, 1);
-        __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
+        std::string path = cacheServer.getPath(fh);
+        path += '/' + name;
+        _return.ret = fileSystemInterface.mkdir(path, 1);
+        __ino_t inode = fileSystemInterface.getInode(path);
         if (inode != 0) {
-            cacheServer.add(_return.fh, inode, relPath);
+            cacheServer.add(_return.fh, inode, path);
         }
         printf("mkdir\n");
     }
 
     int32_t rmdir(const thrift_file_handler &fh) {
-        // Your implementation goes here
-        std::string relPath = cacheServer.getPath(fh);
-        int32_t ret = fileSystemInterface.rmdir(relPath);
+        std::string path = cacheServer.getPath(fh);
+        int32_t ret = fileSystemInterface.rmdir(path);
         cacheServer.remove(fh); // TODO handle errors
         printf("rmdir\n");
         return ret;
@@ -75,44 +74,50 @@ public:
 
     void getattr(thrift_getattr_reply &_return, const thrift_file_handler &fh) {
         std::string path = cacheServer.getPath(fh);
-        // TODO remove
-        std::cout << "Caching ----------------------------------" << std::endl;
-        for (auto pair : cacheServer.vnodes) {
-            std::cout << pair.first << "------" << pair.second.getPath() << std::endl;
-        }
         int ret = fileSystemInterface.getattr(path, _return.tstbuf);
         _return.ret = ret;
         printf("getattr\n");
     }
 
     int32_t unlink(const thrift_file_handler &fh) {
-        // Your implementation goes here
+        std::string path = cacheServer.getPath(fh);
+        int32_t ret = fileSystemInterface.unlink(path);
+        cacheServer.remove(fh); // TODO handle errors
         printf("unlink\n");
+        return ret;
     }
 
     int32_t rename(const thrift_file_handler &fh, const std::string &toname) {
-        // Your implementation goes here
+        std::string path = cacheServer.getPath(fh);
+        int32_t ret = fileSystemInterface.rename(path, toname);
+        cacheServer.rename(fh, toname);
+        // TODO implement
         printf("rename\n");
+        return ret;
     }
 
-    int32_t open(const thrift_file_handler &fh, const thrift_file_info &fi) {
-        // Your implementation goes here
-        printf("open\n");
+    void create(thrift_file_handler_reply& _return, const thrift_file_handler& fh, const std::string& name) {
+        std::string path = cacheServer.getPath(fh);
+        path += '/' + name;
+        _return.ret = fileSystemInterface.create(path);
+        __ino_t inode = fileSystemInterface.getInode(path);
+        if (inode != 0) {
+            cacheServer.add(_return.fh, inode, path);
+        }
+        printf("create\n");
     }
 
-    void read(thrift_read_reply &_return, const thrift_file_handler &fh, const int64_t size, const int64_t offset,
-              const thrift_file_info &fi) {
+    void read(thrift_read_reply& _return, const thrift_file_handler& fh, const int64_t size, const int64_t offset) {
         // Your implementation goes here
         printf("read\n");
     }
 
-    int32_t write(const thrift_file_handler &fh, const std::string &buf, const int64_t size, const int64_t offset,
-                  const thrift_file_info &fi) {
+    int32_t write(const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
         // Your implementation goes here
         printf("write\n");
     }
 
-    int32_t fsync(const thrift_file_handler &fh, const int32_t isdatasync, const thrift_file_info &fi) {
+    int32_t fsync(const thrift_file_handler& fh) {
         // Your implementation goes here
         printf("fsync\n");
     }
