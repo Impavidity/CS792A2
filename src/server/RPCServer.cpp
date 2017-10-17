@@ -50,6 +50,10 @@ public:
         std::vector<thrift_dir_entry> entries;
         _return.ret = fileSystemInterface.readdir(path, entries);
         _return.dir_entries = entries;
+      std::cout << "--------------return----------------" << std::endl;
+      for (auto de : entries) {
+        std::cout << de << std::endl;
+      }
         printf("readdir\n");
     }
 
