@@ -60,12 +60,13 @@ public:
     void mkdir(thrift_file_handler_reply &_return, const thrift_file_handler &fh, const std::string &name) {
         std::string path = cacheServer.getPath(fh);
         path += '/' + name;
-        _return.ret = fileSystemInterface.mkdir(path, 1);
+        _return.ret = fileSystemInterface.mkdir(path, 0777);
         __ino_t inode = fileSystemInterface.getInode(path);
         if (inode != 0) {
             cacheServer.add(_return.fh, inode, path);
         }
         printf("mkdir\n");
+      std::cout << "return : " << _return << std::endl;
     }
 
     int32_t rmdir(const thrift_file_handler &fh) {
@@ -81,6 +82,7 @@ public:
         int ret = fileSystemInterface.getattr(path, _return.tstbuf);
         _return.ret = ret;
         printf("getattr\n");
+      std::cout << "return : " << _return << std::endl;
     }
 
     int32_t unlink(const thrift_file_handler &fh) {

@@ -7,7 +7,7 @@ FileSystemInterface::FileSystemInterface() {
 __ino_t FileSystemInterface::getInode(const std::string& path) {
     std::string fullPath = getFullPath(path);
     struct stat sb;
-    if (::stat(fullPath.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode)) {
+    if (::stat(fullPath.c_str(), &sb) == 0 /*&& S_ISDIR(sb.st_mode)*/) {
         return sb.st_ino;
     } else {
         return 0;
@@ -49,6 +49,7 @@ int FileSystemInterface::getattr(const std::string& path, thrift_stat &tstbuf) {
 int FileSystemInterface::mkdir(const std::string& path, mode_t mode) {
     std::string fullPath = getFullPath(path);
     int ret;
+    std::cout << "File Interface : mkdir " << fullPath << std::endl;
     ret = ::mkdir(fullPath.c_str(), mode);
     if (ret == -1)
         ret = -ENOENT;
