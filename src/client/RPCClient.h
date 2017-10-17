@@ -35,13 +35,14 @@ public:
   void setPort(int port);
   void setRootPath(char* rootPath);
   void startClient();
-  thrift_file_handler mount(const char* path);
-  thrift_file_handler lookup(thrift_file_handler fh, std::string path);
+  thrift_file_handler_reply mount(const char* path);
+  thrift_file_handler_reply lookup(thrift_file_handler fh, std::string path);
   thrift_getattr_reply nfs_getattr(thrift_file_handler fh);
-  thrift_readdir_reply nfs_readdir(thrift_file_handler);
+  thrift_readdir_reply nfs_readdir(thrift_file_handler fh);
+  thrift_file_handler_reply nfs_mkdir(thrift_file_handler fh, std::string name);
+  int nfs_rmdir(thrift_file_handler fh);
+  thrift_read_reply nfs_read(thrift_file_handler fh, int64_t size, int64_t offset);
 //  int nfs_create(const char* path, mode_t mode, struct fuse_file_info* fi);
-//
-//  int nfs_mkdir(const char* path, mode_t mode);
 //  int nfs_rmdir(const char* path);
 
 

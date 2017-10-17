@@ -15,8 +15,8 @@ struct nfs_fuse_operations : fuse_operations {
     init = vfsClient.nfs_init;
     getattr = vfsClient.getattr;
     readdir = vfsClient.nfs_readdir;
-    //mkdir = vfsClient.nfs_mkdir;
-    //rmdir = vfsClient.nfs_rmdir;
+    mkdir = vfsClient.nfs_mkdir;
+    rmdir = vfsClient.nfs_rmdir;
     //.create = nfs_create,
   }
 };

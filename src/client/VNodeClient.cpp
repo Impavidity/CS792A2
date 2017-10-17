@@ -39,7 +39,7 @@ VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
   thrift_file_handler cur_fh = vnode->fh;
   for (std::string token: paths) {
     if (token == std::string("")) continue;
-    cur_fh = rpcClient->lookup(cur_fh, token);
+    cur_fh = rpcClient->lookup(cur_fh, token).fh;
     if (cur_fh.inode == 0) {
       std::cout << "Dir/File does not exist during lookup" << std::endl;
     }
@@ -52,15 +52,37 @@ VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
 
 VNodeClient VNodeClient::getattr(VNodeClient *vnode, std::string path) {
   VNodeClient lookup_vnode = lookup(vnode, path);
-  std::cout << "In the getattr " << lookup_vnode.fh.inode << std::endl;
+  std::cout << "In the getattr, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
+  if (lookup_vnode.fh.inode == 0) {
+    lookup_vnode.getattr_reply.ret = -ENOENT;
+    return lookup_vnode;
+  }
   lookup_vnode.getattr_reply = rpcClient->nfs_getattr(lookup_vnode.fh);
   return lookup_vnode;
 }
 
 VNodeClient VNodeClient::readdir(VNodeClient *vnode, std::string path) {
   VNodeClient lookup_vnode = lookup(vnode, path);
-  std::cout << "In the readdir" << lookup_vnode.fh.inode << std::endl;
+  std::cout << "In the readdir, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
   lookup_vnode.readdir_reply = rpcClient->nfs_readdir(lookup_vnode.fh);
+  return lookup_vnode;
+}
+
+VNodeClient VNodeClient::mkdir(VNodeClient *vnode, std::string path, std::string name) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.mkdir_reply = rpcClient->nfs_mkdir(lookup_vnode.fh, name);
+  return lookup_vnode;
+}
+
+VNodeClient VNodeClient::rmdir(VNodeClient *vnode, std::string path) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.rmdir_reply = rpcClient->nfs_rmdir(lookup_vnode.fh);
+  return lookup_vnode;
+}
+
+VNodeClient VNodeClient::read(VNodeClient *vnode, std::string path, int64_t size, int64_t offset) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.read_reply = rpcClient->nfs_read(lookup_vnode.fh, size, offset);
   return lookup_vnode;
 }
 

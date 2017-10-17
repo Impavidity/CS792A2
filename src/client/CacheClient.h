@@ -17,6 +17,7 @@ public:
   std::map<std::string, VNodeClient> path2vnode;
   //std::vector<WriteRecord*> writeBuffer;
   int insertPath(std::string path, VNodeClient pv);
+  int removePath(std::string path);
   VNodeClient* checkPath(std::string);
 //  int insertWriteRecord(WriteRecord* record);
 //  int flushWriteRecord(WriteRecord* record);
