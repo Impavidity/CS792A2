@@ -7,11 +7,10 @@ FileSystemInterface::FileSystemInterface() {
 __ino_t FileSystemInterface::getInode(const std::string& path) {
     std::string fullPath = getFullPath(path);
     struct stat sb;
-    if (::stat(fullPath.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode)) {
+    if (::stat(fullPath.c_str(), &sb) == 0) {
         return sb.st_ino;
-    } else {
-        return 0;
     }
+    throw -1;
 }
 
 
@@ -77,7 +76,7 @@ int32_t FileSystemInterface::unlink(const std::string& path) {
     int res;
     res = ::unlink(fullPath.c_str());
     if (res == -1)
-        return -errno;
+        return -ENOENT;
     return 0;
 }
 

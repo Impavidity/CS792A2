@@ -22,107 +22,152 @@ public:
         cacheServer.add(rootFh, inode, "");
     }
 
-    void root(thrift_file_handler &_return) {
-        _return = rootFh;
+    void root(thrift_file_handler_reply& _return) {
+        _return.fh = rootFh;
+        _return.ret = 0;
         printf("root\n");
     }
 
-    void mount(thrift_file_handler &_return, const std::string &path) {
-        _return = rootFh;
+    void mount(thrift_file_handler_reply& _return, const std::string &path) {
+        _return.fh = rootFh;
+        _return.ret = 0;
         printf("mount\n");
     }
 
-    void lookup(thrift_file_handler &_return, const thrift_file_handler &fh, const std::string &path) {
-        std::string relPath = cacheServer.getPath(fh);
-        relPath += '/' + path;
-        __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
-        if (inode != 0) {
-            cacheServer.get(_return, inode);
-            if (_return.inode == 0) {
-                cacheServer.add(_return, inode, relPath);
+    void lookup(thrift_file_handler_reply& _return, const thrift_file_handler &fh, const std::string &path) {
+        try {
+            std::string relPath = cacheServer.getPath(fh);
+            relPath += '/' + path;
+            __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
+            try {
+                cacheServer.get(_return.fh, inode);
+            } catch (int e) {
+                cacheServer.add(_return.fh, inode, relPath);
             }
+        } catch (int e) {
+            _return.ret = -ENOENT;
         }
         std::cout << "lookup " << path << std::endl;
     }
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
-        std::string path = cacheServer.getPath(fh);
-        std::vector <thrift_dir_entry> entries;
-        _return.ret = fileSystemInterface.readdir(path, entries);
-        _return.dir_entries = entries;
-        printf("readdir\n");
+        try {
+            std::string path = cacheServer.getPath(fh);
+            std::vector<thrift_dir_entry> entries;
+            _return.ret = fileSystemInterface.readdir(path, entries);
+            _return.dir_entries = entries;
+            printf("readdir\n");
+        } catch (int e) {
+            _return.ret = -ENOENT;
+        }
     }
 
     void mkdir(thrift_file_handler_reply &_return, const thrift_file_handler &fh, const std::string &name) {
-        std::string path = cacheServer.getPath(fh);
-        path += '/' + name;
-        _return.ret = fileSystemInterface.mkdir(path, 1);
-        __ino_t inode = fileSystemInterface.getInode(path);
-        if (inode != 0) {
-            cacheServer.add(_return.fh, inode, path);
+        try {
+            std::string path = cacheServer.getPath(fh);
+            path += '/' + name;
+            _return.ret = fileSystemInterface.mkdir(path, 0777);
+            __ino_t inode = fileSystemInterface.getInode(path);
+            if (inode != 0) {
+                cacheServer.add(_return.fh, inode, path);
+            }
+        } catch (int e) {
+            _return.ret = -ENONET;
         }
         printf("mkdir\n");
     }
 
     int32_t rmdir(const thrift_file_handler &fh) {
-        std::string path = cacheServer.getPath(fh);
-        int32_t ret = fileSystemInterface.rmdir(path);
-        cacheServer.remove(fh); // TODO handle errors
-        printf("rmdir\n");
-        return ret;
+        try {
+            std::string path = cacheServer.getPath(fh);
+            int32_t ret = fileSystemInterface.rmdir(path);
+            cacheServer.remove(fh); // TODO handle errors
+            printf("rmdir\n");
+            return ret;
+        } catch (int e) {
+            return -ENONET;
+        }
     }
 
     void getattr(thrift_getattr_reply &_return, const thrift_file_handler &fh) {
-        std::string path = cacheServer.getPath(fh);
-        int ret = fileSystemInterface.getattr(path, _return.tstbuf);
-        _return.ret = ret;
-        printf("getattr\n");
+        try {
+            std::string path = cacheServer.getPath(fh);
+            int ret = fileSystemInterface.getattr(path, _return.tstbuf);
+            _return.ret = ret;
+            printf("getattr\n");
+        } catch (int e){
+            _return.ret = -ENONET;
+        }
     }
 
     int32_t unlink(const thrift_file_handler &fh) {
-        std::string path = cacheServer.getPath(fh);
-        int32_t ret = fileSystemInterface.unlink(path);
-        cacheServer.remove(fh); // TODO handle errors
-        printf("unlink\n");
-        return ret;
+        try {
+            std::string path = cacheServer.getPath(fh);
+            int32_t ret = fileSystemInterface.unlink(path);
+            cacheServer.remove(fh); // TODO handle errors
+            printf("unlink\n");
+            return ret;
+        } catch (int e) {
+            return -ENONET;
+        }
     }
 
     int32_t rename(const thrift_file_handler &fh, const std::string &toname) {
-        std::string path = cacheServer.getPath(fh);
-        int32_t ret = fileSystemInterface.rename(path, toname);
-        cacheServer.rename(fh, toname);
-        // TODO implement
-        printf("rename\n");
-        return ret;
+        try {
+            std::string path = cacheServer.getPath(fh);
+            int32_t ret = fileSystemInterface.rename(path, toname);
+            cacheServer.rename(fh, toname);
+            // TODO implement
+            printf("rename\n");
+            return ret;
+        } catch (int e) {
+            return -ENONET;
+        }
     }
 
     void create(thrift_file_handler_reply& _return, const thrift_file_handler& fh, const std::string& name) {
-        std::string path = cacheServer.getPath(fh);
-        path += '/' + name;
-        _return.ret = fileSystemInterface.create(path);
-        __ino_t inode = fileSystemInterface.getInode(path);
-        if (inode != 0) {
-            cacheServer.add(_return.fh, inode, path);
+        try {
+            std::string path = cacheServer.getPath(fh);
+            path += '/' + name;
+            _return.ret = fileSystemInterface.create(path);
+            __ino_t inode = fileSystemInterface.getInode(path);
+            if (inode != 0) {
+                cacheServer.add(_return.fh, inode, path);
+            }
+            printf("create\n");
+        } catch (int e) {
+            _return.ret = -ENONET;
         }
-        printf("create\n");
     }
 
     void read(thrift_read_reply& _return, const thrift_file_handler& fh, const int64_t size, const int64_t offset) {
-        std::string path = cacheServer.getPath(fh);
-        fileSystemInterface.read(_return, path, size, offset);
-        printf("read\n");
+        try {
+            std::string path = cacheServer.getPath(fh);
+            fileSystemInterface.read(_return, path, size, offset);
+            printf("read\n");
+        } catch (int e) {
+            _return.ret = -ENONET;
+        }
     }
 
     int32_t write(const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
-        std::string path = cacheServer.getPath(fh);
-        int32_t ret = fileSystemInterface.write(path, buf, size, offset);
-        printf("write\n");
-        return ret;
+        try {
+            std::string path = cacheServer.getPath(fh);
+            int32_t ret = fileSystemInterface.write(path, buf, size, offset);
+            printf("write\n");
+            return ret;
+        } catch (int e) {
+            return -ENONET;
+        }
     }
 
     int32_t fsync(const thrift_file_handler& fh) {
-        // Your implementation goes here
-        printf("fsync\n");
+        try {
+            // Your implementation goes here
+            printf("fsync\n");
+        } catch (int e) {
+            return -ENONET;
+        }
     }
 
 
