@@ -89,18 +89,30 @@ int32_t FileSystemInterface::rename(const std::string& path, const std::string &
 
 int32_t FileSystemInterface::create(const std::string& path) {
     std::string fullPath = getFullPath(path);
-    fclose(fopen(fullPath, "w"));
+    std::ofstream os(path, std::ios::binary);
+    os.close();
     return 0;
 }
 
 void FileSystemInterface::read(thrift_read_reply &_return, const std::string& path, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
-
+    std::ifstream is(path, std::ios::binary);
+    is.seekg(offset, std::ios::beg);
+    std::string buf(size, '\0');
+    is.read(&buf[0], size);
+    _return.buf = buf;
+    _return.ret = is.gcount();
+    is.close();
 }
 
 int32_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
-    return 0;
+    std::ofstream os(path, std::ios::binary);
+    os.seekp(offset, std::ios::beg);
+    os.write(&buf[0], size);
+    int32_t ret = os.tellp() - offset;
+    os.close();
+    return ret;
 }
 
 void FileSystemInterface::statToThrift(struct stat *stbuf, thrift_stat &tstbuf) {

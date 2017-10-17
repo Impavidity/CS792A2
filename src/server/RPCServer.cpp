@@ -108,13 +108,16 @@ public:
     }
 
     void read(thrift_read_reply& _return, const thrift_file_handler& fh, const int64_t size, const int64_t offset) {
-        // Your implementation goes here
+        std::string path = cacheServer.getPath(fh);
+        fileSystemInterface.read(_return, path, size, offset);
         printf("read\n");
     }
 
     int32_t write(const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
-        // Your implementation goes here
+        std::string path = cacheServer.getPath(fh);
+        int32_t ret = fileSystemInterface.write(path, buf, size, offset);
         printf("write\n");
+        return ret;
     }
 
     int32_t fsync(const thrift_file_handler& fh) {
