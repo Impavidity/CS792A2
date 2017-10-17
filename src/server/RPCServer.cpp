@@ -22,7 +22,7 @@ public:
         cacheServer.add(rootFh, inode, "");
     }
 
-    void root(thrift_file_handler& _return) {
+    void root(thrift_file_handler &_return) {
         _return = rootFh;
         printf("root\n");
     }
@@ -47,13 +47,13 @@ public:
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
         std::string path = cacheServer.getPath(fh);
-        std::vector<thrift_dir_entry> entries;
+        std::vector <thrift_dir_entry> entries;
         _return.ret = fileSystemInterface.readdir(path, entries);
         _return.dir_entries = entries;
         printf("readdir\n");
     }
 
-    void mkdir(thrift_file_handler_reply& _return, const thrift_file_handler& fh, const std::string& name) {
+    void mkdir(thrift_file_handler_reply &_return, const thrift_file_handler &fh, const std::string &name) {
         std::string relPath = cacheServer.getPath(fh);
         relPath += '/' + name;
         _return.ret = fileSystemInterface.mkdir(relPath, 1);
@@ -75,13 +75,46 @@ public:
 
     void getattr(thrift_getattr_reply &_return, const thrift_file_handler &fh) {
         std::string path = cacheServer.getPath(fh);
-      std::cout << "Caching ----------------------------------" << std::endl;
-      for (auto pair : cacheServer.vnodes) {
-        std::cout << pair.first << "------" << pair.second.getPath() << std::endl;
-      }
+        // TODO remove
+        std::cout << "Caching ----------------------------------" << std::endl;
+        for (auto pair : cacheServer.vnodes) {
+            std::cout << pair.first << "------" << pair.second.getPath() << std::endl;
+        }
         int ret = fileSystemInterface.getattr(path, _return.tstbuf);
         _return.ret = ret;
         printf("getattr\n");
+    }
+
+    int32_t unlink(const thrift_file_handler &fh) {
+        // Your implementation goes here
+        printf("unlink\n");
+    }
+
+    int32_t rename(const thrift_file_handler &fh, const std::string &toname) {
+        // Your implementation goes here
+        printf("rename\n");
+    }
+
+    int32_t open(const thrift_file_handler &fh, const thrift_file_info &fi) {
+        // Your implementation goes here
+        printf("open\n");
+    }
+
+    void read(thrift_read_reply &_return, const thrift_file_handler &fh, const int64_t size, const int64_t offset,
+              const thrift_file_info &fi) {
+        // Your implementation goes here
+        printf("read\n");
+    }
+
+    int32_t write(const thrift_file_handler &fh, const std::string &buf, const int64_t size, const int64_t offset,
+                  const thrift_file_info &fi) {
+        // Your implementation goes here
+        printf("write\n");
+    }
+
+    int32_t fsync(const thrift_file_handler &fh, const int32_t isdatasync, const thrift_file_info &fi) {
+        // Your implementation goes here
+        printf("fsync\n");
     }
 
 
@@ -90,7 +123,7 @@ public:
 RPCServer::RPCServer(int port, std::string mountRoot) {
 
 
-    shared_ptr<NFSHandler> handler(new NFSHandler(mountRoot));
+    shared_ptr <NFSHandler> handler(new NFSHandler(mountRoot));
     this->processor = shared_ptr<TProcessor>(new NFSProcessor(handler));
     this->serverTransport = shared_ptr<TServerTransport>(new TServerSocket(port));
     this->transportFactory = shared_ptr<TTransportFactory>(new TBufferedTransportFactory());
