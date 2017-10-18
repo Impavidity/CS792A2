@@ -21,7 +21,11 @@ private:
 public:
     NFSHandler(std::string root) : fileSystemInterface(root), cacheServer(root) {
         __ino_t inode = fileSystemInterface.getInode("");
-        cacheServer.add(rootFh, inode, "");
+        try {
+            cacheServer.get(rootFh, inode);
+        } catch (int e) {
+            cacheServer.add(rootFh, inode, "");
+        }
     }
 
     void root(thrift_file_handler_reply& _return) {
