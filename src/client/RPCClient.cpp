@@ -102,36 +102,40 @@ thrift_read_reply RPCClient::nfs_read(thrift_file_handler fh, int64_t size, int6
   return reply;
 }
 
-//int RPCClient::nfs_mkdir(const char *path, mode_t mode) {
-//  std::string tpath(path);
-//  int ret;
-//  thrift_file_handler fh;
-//  try {
-//    ret = this->client.mkdir(fh, tpath);
-//  } catch (TException& tx) {
-//    std::cout << "ERROR: " << tx.what() << std::endl;
-//  }
-//  return ret;
-//}
-//
-//
+int RPCClient::nfs_write(thrift_file_handler fh, const char *buf, int64_t size, int64_t offset) {
+  int ret;
+  try {
+    ret = this->client.write(fh, std::string(buf), size, offset);
+  } catch (TException& tx) {
+    std::cout << "ERROR: " << tx.what() << std::endl;
+  }
+  return ret;
+}
+
+thrift_file_handler_reply RPCClient::nfs_create(thrift_file_handler fh, std::string name) {
+  thrift_file_handler_reply reply;
+  try {
+    this->client.create(reply,fh, name);
+  } catch (TException& tx) {
+    std::cout << "ERROR: " << tx.what() << std::endl;
+  }
+  return reply;
+}
+
+int RPCClient::nfs_unlink(thrift_file_handler fh) {
+  int ret;
+  try{
+    ret = this->client.unlink(fh);
+  } catch (TException& tx) {
+    std::cout << "ERROR: " << tx.what() << std::endl;
+  }
+  return ret;
+}
+
 //int RPCClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info* fi) {
 //  //this->client.ping();
 //  std::cout<<"Hello"<<std::endl;
 //}
 
-
-
-
-//int RPCClient::nfs_rmdir(const char *path) {
-//  std::string tpath(path);
-//  int ret;
-//  try {
-//    ret = this->client.nfs_rmdir(tpath);
-//  } catch (TException& tx) {
-//    std::cout << "ERROR: " << tx.what() << std::endl;
-//  }
-//  return ret;
-//}
 
 

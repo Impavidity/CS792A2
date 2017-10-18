@@ -26,6 +26,9 @@ public:
   thrift_read_reply read_reply;
   int read_state;
   int open_state;
+  int write_reply;
+  int unlink_reply;
+  thrift_file_handler_reply create_reply;
 
 
   // Specify static function for VNode. Generally pass the VNode pointer as one argument
@@ -36,7 +39,9 @@ public:
   static VNodeClient rmdir(VNodeClient* vnode, std::string path);
   static VNodeClient open(VNodeClient* vnode, std::string path);
   static VNodeClient read(VNodeClient* vnode, std::string path, int64_t size, int64_t offset);
-  static VNodeClient write(VNodeClient* vnode,std::string path);
+  static VNodeClient write(VNodeClient* vnode,std::string path, const char *buf, size_t size, off_t offset);
+  static VNodeClient create(VNodeClient* vnode, std::string path, std::string name);
+  static VNodeClient unlink(VNodeClient* vnode, std::string path);
 
 
 };

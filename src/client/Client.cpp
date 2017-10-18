@@ -19,7 +19,11 @@ struct nfs_fuse_operations : fuse_operations {
     rmdir = vfsClient.nfs_rmdir;
     read = vfsClient.nfs_read;
     open = vfsClient.nfs_open;
-    //.create = nfs_create,
+    write = vfsClient.nfs_write;
+    release = vfsClient.nfs_release;
+    fsync = vfsClient.nfs_fsync;
+    create = vfsClient.nfs_create;
+    unlink = vfsClient.nfs_unlink;
   }
 };
 

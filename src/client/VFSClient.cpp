@@ -181,3 +181,59 @@ int VFSClient::nfs_read(const char *path, char *buf, size_t size, off_t offset, 
   return (int) size;
 }
 
+int VFSClient::nfs_write(const char *path, const char *buf, size_t size, off_t offset, fuse_file_info *fi) {
+  std::string tpath(path);
+  std::cout << "VFSClient::nfs_write : path " << tpath << std::endl;
+  VNodeClient* cache_vnode = cache.checkPath(tpath);
+  VNodeClient vnode;
+  if (cache_vnode != nullptr) {
+    //TODO : Cache
+  } else {
+    std::cout << "Find cache failed" << std::endl;
+    // TODO : Cache Write
+    vnode = VNodeClient::write(&root, tpath, buf, size, offset);
+    cache.insertPath(tpath, vnode);
+    cache_vnode = &vnode;
+  }
+  return cache_vnode->write_reply;
+}
+
+int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
+  return 0;
+}
+
+int VFSClient::nfs_fsync(const char* path, int, struct fuse_file_info* fi) {
+  return 0;
+}
+
+int VFSClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info *fi) {
+  std::string tpath(path);
+  std::cout  << "VFSClient::nfs_create path " << tpath << std::endl;
+  auto index = tpath.rfind('/');
+  std::string first_part, second_part;
+  if (index !=std::string::npos)  {
+    first_part = tpath.substr(0, index);
+    second_part = tpath.substr(index+1);
+    std::cout << "Split path in create file " << first_part << " " << second_part << std::endl;
+  }
+  VNodeClient* cache_vnode = cache.checkPath(first_part);
+  VNodeClient vnode;
+  if (cache_vnode != nullptr) {
+    vnode = VNodeClient::create(cache_vnode, std::string(""), second_part);
+  } else {
+    vnode = VNodeClient::create(&root, first_part, second_part);
+  }
+  return vnode.create_reply.ret;
+}
+
+int VFSClient::nfs_unlink(const char *path) {
+  std::string tpath(path);
+  VNodeClient* cache_vnode = cache.checkPath(tpath);
+  VNodeClient vnode;
+  if (cache_vnode != nullptr) {
+    vnode = VNodeClient::unlink(cache_vnode, std::string(""));
+  } else {
+    vnode = VNodeClient::unlink(&root, tpath);
+  }
+  return vnode.unlink_reply;
+}

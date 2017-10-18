@@ -98,3 +98,21 @@ VNodeClient VNodeClient::open(VNodeClient *vnode, std::string path) {
   return lookup_vnode;
 }
 
+VNodeClient VNodeClient::write(VNodeClient *vnode, std::string path, const char *buf, size_t size, off_t offset) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.write_reply = rpcClient->nfs_write(lookup_vnode.fh, buf, size, offset);
+  return lookup_vnode;
+}
+
+VNodeClient VNodeClient::create(VNodeClient *vnode, std::string path, std::string name) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.create_reply = rpcClient->nfs_create(lookup_vnode.fh, name);
+  return lookup_vnode;
+}
+
+VNodeClient VNodeClient::unlink(VNodeClient *vnode, std::string path) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.unlink_reply = rpcClient->nfs_unlink(lookup_vnode.fh);
+  return lookup_vnode;
+}
+

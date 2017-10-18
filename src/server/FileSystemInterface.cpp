@@ -89,7 +89,7 @@ int32_t FileSystemInterface::rename(const std::string& path, const std::string &
 
 int32_t FileSystemInterface::create(const std::string& path) {
     std::string fullPath = getFullPath(path);
-    std::ofstream os(path, std::ios::binary);
+    std::ofstream os(fullPath, std::ios::binary);
     os.close();
     return 0;
 }

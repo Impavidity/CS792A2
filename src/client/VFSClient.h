@@ -24,9 +24,12 @@ public:
   static int nfs_rmdir(const char* path);
   static int nfs_open(const char *path, struct fuse_file_info *fi);
   static int nfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi);
-//  static int nfs_create(const char *path, mode_t mode, struct fuse_file_info* fi);
-
+  static int nfs_write(const char *path, const char *buf, size_t size, off_t offset, fuse_file_info *fi);
+  static int nfs_release(const char *path, struct fuse_file_info* fi);
+  static int nfs_fsync(const char* path, int, fuse_file_info* fi);
+  static int nfs_create(const char *path, mode_t mode, struct fuse_file_info* fi);
   static void *nfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg);
+  static int nfs_unlink(const char * path);
 
 };
 
