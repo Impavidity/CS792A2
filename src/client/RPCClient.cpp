@@ -261,6 +261,28 @@ int RPCClient::nfs_unlink(thrift_file_handler fh) {
   return ret;
 }
 
+int RPCClient::nfs_fsync(thrift_file_handler fh) {
+  int ret;
+  while (true) {
+    try{
+      ret = this->client.fsync(fh);
+      break;
+    } catch (TException& tx) {
+      //std::cout << "ERROR: " << tx.what() << std::endl;
+      transport->close();
+      while (true)
+        try{
+          transport->open();
+          break;
+        } catch (TException& tx) {
+          continue;
+        }
+      continue;
+    }
+  }
+  return ret;
+}
+
 //int RPCClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info* fi) {
 //  //this->client.ping();
 //  std::cout<<"Hello"<<std::endl;

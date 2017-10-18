@@ -29,6 +29,7 @@ public:
   int write_reply;
   int unlink_reply;
   thrift_file_handler_reply create_reply;
+  int fsync_reply;
 
 
   // Specify static function for VNode. Generally pass the VNode pointer as one argument
@@ -42,6 +43,7 @@ public:
   static VNodeClient write(VNodeClient* vnode,std::string path, const char *buf, size_t size, off_t offset);
   static VNodeClient create(VNodeClient* vnode, std::string path, std::string name);
   static VNodeClient unlink(VNodeClient* vnode, std::string path);
+  static VNodeClient fsync(VNodeClient* vnode, std::string path);
 
 
 };

@@ -116,3 +116,8 @@ VNodeClient VNodeClient::unlink(VNodeClient *vnode, std::string path) {
   return lookup_vnode;
 }
 
+VNodeClient VNodeClient::fsync(VNodeClient *vnode, std::string path) {
+  VNodeClient lookup_vnode = lookup(vnode, path);
+  lookup_vnode.fsync_reply = rpcClient->nfs_fsync(lookup_vnode.fh);
+  return lookup_vnode;
+}

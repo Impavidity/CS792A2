@@ -199,10 +199,38 @@ int VFSClient::nfs_write(const char *path, const char *buf, size_t size, off_t o
 }
 
 int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
+  std::string tpath(path);
+  std::cout << "VFSClient::nfs_release : path " << tpath << std::endl;
+  VNodeClient* cache_vnode = cache.checkPath(tpath);
+  VNodeClient vnode;
+  if (cache_vnode != nullptr) {
+    //TODO : Cache
+  } else {
+    std::cout << "Find cache failed" << std::endl;
+    //TODO : Cache
+    vnode = VNodeClient::fsync(&root, tpath);
+    // TODO: Cache
+    cache_vnode = &vnode;
+  }
+
   return 0;
 }
 
-int VFSClient::nfs_fsync(const char* path, int, struct fuse_file_info* fi) {
+int VFSClient::nfs_fsync(const char* path, int datasync, struct fuse_file_info* fi) {
+  std::string tpath(path);
+  std::cout << "VFSClient::nfs_release : path " << tpath << std::endl;
+  VNodeClient* cache_vnode = cache.checkPath(tpath);
+  VNodeClient vnode;
+  if (cache_vnode != nullptr) {
+    //TODO: Cache
+  } else {
+    std::cout << "Find cache failed" << std::endl;
+    //TODO : Cache
+    vnode = VNodeClient::fsync(&root, tpath);
+    // TODO: Cache
+    cache_vnode = &vnode;
+  }
+
   return 0;
 }
 
