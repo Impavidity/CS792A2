@@ -14,6 +14,8 @@ private:
 
     FileSystemInterface fileSystemInterface;
 
+    WriteCacheServer writeCache;
+
     thrift_file_handler rootFh;
 
 public:
@@ -155,9 +157,9 @@ public:
     int32_t write(const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
         try {
             std::string path = cacheServer.getPath(fh);
-            int32_t ret = fileSystemInterface.write(path, buf, size, offset);
+            writeCache.write(path, buf, size, offset);
             printf("write\n");
-            return ret;
+            return (int32_t) size;
         } catch (int e) {
             return -ENONET;
         }
@@ -165,8 +167,13 @@ public:
 
     int32_t fsync(const thrift_file_handler& fh) {
         try {
-            // Your implementation goes here
+            std::string path = cacheServer.getPath(fh);
+            for(WriteCacheServerEntry entry : writeCache.getWriteEntries(path)) {
+                fileSystemInterface.write(path, entry.buf, entry.size, entry.size);
+            }
+            writeCache.clearWriteEntries(path);
             printf("fsync\n");
+            return 0;
         } catch (int e) {
             return -ENONET;
         }
