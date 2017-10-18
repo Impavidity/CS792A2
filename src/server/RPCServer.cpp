@@ -176,7 +176,7 @@ public:
                 fileSystemInterface.write(path, entry.buf, entry.size, entry.size);
             }
             writeCache.clearWriteEntries(path);
-            printf("fsync\n");
+            std::cout << "fsync " << path << std::endl;
             return 0;
         } catch (int e) {
             return -ENONET;
