@@ -173,12 +173,9 @@ public:
     void fsync(thrift_write_reply& _return, const thrift_file_handler& fh) {
         try {
             std::string path = cacheServer.getPath(fh);
-            for(WriteCacheServerEntry entry : writeCache.getWriteEntries(path)) {
-                fileSystemInterface.write(path, entry.buf, entry.size, entry.size);
-            }
+            _return.ret = fileSystemInterface.writeAll(path, writeCache.getWriteEntries(path));
             writeCache.clearWriteEntries(path);
             std::cout << "fsync " << path << std::endl;
-            _return.ret = 0;
         } catch (int e) {
             _return.ret = -ENONET;
         }

@@ -10,6 +10,7 @@
 #include <errno.h>
 #include "NFS.h"
 #include "CacheServer.h"
+#include "WriteCacheServerEntry.h"
 
 class FileSystemInterface {
 private:
@@ -40,7 +41,9 @@ public:
 
     void read(thrift_read_reply &_return, const std::string& path, const int64_t size, const int64_t offset);
 
-    int32_t write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset);
+    int64_t write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset);
+
+    int64_t writeAll(const std::string& path, const std::vector<WriteCacheServerEntry> &writeVector);
 };
 
 
