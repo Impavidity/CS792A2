@@ -1,9 +1,5 @@
 #include "FileSystemInterface.h"
 
-FileSystemInterface::FileSystemInterface() {
-
-}
-
 __ino_t FileSystemInterface::getInode(const std::string& path) {
     std::string fullPath = getFullPath(path);
     struct stat sb;

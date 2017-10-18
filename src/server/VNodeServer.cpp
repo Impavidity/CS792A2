@@ -22,12 +22,6 @@ int VNodeServer::getGeneration() {
     return generation;
 }
 
-template<class Archive>
-void VNodeServer::serialize(Archive &ar, const unsigned int version) {
-    ar & abs_path;
-    ar & generation;
-}
-
 VNodeServer::VNodeServer(const VNodeServer &vn) {
     generation = vn.generation;
     abs_path = vn.abs_path;

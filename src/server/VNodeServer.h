@@ -8,13 +8,20 @@
 #include <string>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/string.hpp>
 
 class VNodeServer {
 private:
     friend class boost::serialization::access;
+    friend class CacheServer;
     std::string abs_path;
     int generation;
-    template<class Archive> void serialize(Archive & ar, const unsigned int version);
+    template<class Archive> void serialize(Archive & ar, const unsigned int version){
+        ar & abs_path;
+        ar & generation;
+    }
 public:
     VNodeServer(){generation = std::rand();};
     VNodeServer(std::string path, int gen);

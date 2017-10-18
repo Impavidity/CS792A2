@@ -17,7 +17,7 @@ private:
     thrift_file_handler rootFh;
 
 public:
-    NFSHandler(std::string root) : fileSystemInterface(root) {
+    NFSHandler(std::string root) : fileSystemInterface(root), cacheServer(root) {
         __ino_t inode = fileSystemInterface.getInode("");
         cacheServer.add(rootFh, inode, "");
     }

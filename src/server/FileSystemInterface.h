@@ -18,8 +18,6 @@ private:
     void statToThrift(struct stat *stbuf, thrift_stat &tstbuf);
 
 public:
-    FileSystemInterface();
-
     explicit FileSystemInterface(const std::string& root);
 
     std::string getFullPath(const std::string& path);
