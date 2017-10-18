@@ -4,6 +4,18 @@
 
 #include "CacheServer.h"
 
+CacheServer::CacheServer(const std::string& root) {
+    cacheFileName = root + '/' + CACHE_FILE_NAME;
+    std::ifstream ifs(cacheFileName);
+    if (ifs.good()) {
+        boost::archive::text_iarchive ia(ifs);
+        ia >> *this;
+    } else {
+        systemId = std::rand();
+        persist();
+    }
+}
+
 std::string CacheServer::getPath(const thrift_file_handler &fh) {
     if (fh.system_id != systemId) {
         throw -1;
@@ -12,9 +24,9 @@ std::string CacheServer::getPath(const thrift_file_handler &fh) {
         throw -1;
     }
     VNodeServer vn = vnodes[fh.inode];
-    //if (vn.getGeneration() != fh.generation_number) {
-    //    throw -1;
-    //}
+    if (vn.getGeneration() != fh.generation_number) {
+        throw -1;
+    }
     return vn.getPath();
 }
 
@@ -40,19 +52,16 @@ void CacheServer::add(thrift_file_handler &fh, int64_t inode, const std::string&
     fh.inode = inode;
     fh.generation_number = vn.getGeneration();
     fh.system_id = getSystemId();
+    persist();
 }
 
 int32_t CacheServer::getSystemId() {
-    // TODO remove this
-    if (systemId == 0) {
-        systemId = rand(); // TODO use another random function
-    }
-    // TODO read it from cache
     return systemId;
 }
 
 void CacheServer::remove(const thrift_file_handler &fh) {
     vnodes.erase(fh.inode);
+    persist();
 }
 
 void CacheServer::rename(const thrift_file_handler &fh, const std::string &name) {
@@ -61,4 +70,10 @@ void CacheServer::rename(const thrift_file_handler &fh, const std::string &name)
         throw -1;
     }
     // TODO implement
+}
+
+void CacheServer::persist() {
+    std::ofstream ofs(cacheFileName);
+    boost::archive::text_oarchive oa(ofs);
+    oa << *this;
 }
