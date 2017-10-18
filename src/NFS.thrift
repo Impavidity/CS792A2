@@ -56,6 +56,11 @@ struct thrift_read_reply {
     2: binary buf;
 }
 
+struct thrift_write_reply {
+    1: i32 ret;
+    2: i64 write_verifier;
+}
+
 service NFS {
     thrift_file_handler_reply root();
     thrift_file_handler_reply mount(1:string path);
@@ -68,6 +73,6 @@ service NFS {
     i32 rename(1:thrift_file_handler fh, 2:string toname);
     thrift_file_handler_reply create(1:thrift_file_handler fh, 2:string name);
     thrift_read_reply read(1:thrift_file_handler fh, 2:i64 size, 3:i64 offset);
-    i32 write(1:thrift_file_handler fh, 2:binary buf, 3:i64 size, 4:i64 offset);
-    i32 fsync(1:thrift_file_handler fh);
+    thrift_write_reply write(1:thrift_file_handler fh, 2:binary buf, 3:i64 size, 4:i64 offset);
+    thrift_write_reply fsync(1:thrift_file_handler fh);
 }
