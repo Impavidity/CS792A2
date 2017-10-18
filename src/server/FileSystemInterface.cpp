@@ -32,6 +32,7 @@ int FileSystemInterface::readdir(const std::string& path, std::vector<thrift_dir
 
 int FileSystemInterface::getattr(const std::string& path, thrift_stat &tstbuf) {
     std::string fullPath = getFullPath(path);
+    std::cout << "Get attr" << fullPath << std::endl;
     int ret;
     struct stat stbuf;
     ret = ::lstat(fullPath.c_str(), &stbuf);
