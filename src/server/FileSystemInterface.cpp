@@ -102,7 +102,7 @@ void FileSystemInterface::read(thrift_read_reply &_return, const std::string& pa
     is.close();
 }
 
-int32_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
+int64_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
     std::ofstream os(fullPath, std::ios::binary | std::ios::in);
     os.seekp(offset, std::ios::beg);
@@ -133,4 +133,17 @@ void FileSystemInterface::statToThrift(struct stat *stbuf, thrift_stat &tstbuf) 
     tstbuf.__glibc_reserved0 = (int64_t) stbuf->__glibc_reserved[0];
     tstbuf.__glibc_reserved1 = (int64_t) stbuf->__glibc_reserved[1];
     tstbuf.__glibc_reserved2 = (int64_t) stbuf->__glibc_reserved[2];
+}
+
+int64_t FileSystemInterface::writeAll(const std::string &path, const std::vector<WriteCacheServerEntry> &writeVector) {
+    std::string fullPath = getFullPath(path);
+    std::ofstream os(fullPath, std::ios::binary | std::ios::in);
+    int64_t ret;
+    for (WriteCacheServerEntry entry : writeVector) {
+        os.seekp(entry.offset, std::ios::beg);
+        os.write(&(entry.buf)[0], entry.size);
+        ret += os.tellp() - entry.offset;
+    }
+    os.close();
+    return ret;
 }
