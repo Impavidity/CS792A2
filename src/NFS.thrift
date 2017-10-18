@@ -57,7 +57,7 @@ struct thrift_read_reply {
 }
 
 struct thrift_write_reply {
-    1: i32 ret;
+    1: i64 ret;
     2: i64 write_verifier;
 }
 

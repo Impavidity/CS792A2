@@ -12,10 +12,13 @@
 class WriteCacheServer {
 private:
     std::unordered_map<std::string, std::vector<WriteCacheServerEntry>> writeEntries;
+    int64_t writeVerifier;
 public:
+    WriteCacheServer();
     void write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset);
     std::vector<WriteCacheServerEntry> getWriteEntries(std::string &path); // TODO return reference
     void clearWriteEntries(std::string &path);
+    int64_t getWriteVerifier();
 };
 
 

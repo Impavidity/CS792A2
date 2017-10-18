@@ -158,18 +158,19 @@ public:
       std::cout << "Return In Read " << _return << std::endl;
     }
 
-    int32_t write(const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
+    void write(thrift_write_reply& _return, const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
         try {
             std::string path = cacheServer.getPath(fh);
             writeCache.write(path, buf, size, offset);
             printf("write\n");
-            return (int32_t) size;
+            _return.ret = size;
         } catch (int e) {
-            return -ENONET;
+            _return.ret = -ENONET;
         }
+        _return.write_verifier = writeCache.getWriteVerifier();
     }
 
-    int32_t fsync(const thrift_file_handler& fh) {
+    void fsync(thrift_write_reply& _return, const thrift_file_handler& fh) {
         try {
             std::string path = cacheServer.getPath(fh);
             for(WriteCacheServerEntry entry : writeCache.getWriteEntries(path)) {
@@ -177,10 +178,11 @@ public:
             }
             writeCache.clearWriteEntries(path);
             std::cout << "fsync " << path << std::endl;
-            return 0;
+            _return.ret = 0;
         } catch (int e) {
-            return -ENONET;
+            _return.ret = -ENONET;
         }
+        _return.write_verifier = writeCache.getWriteVerifier();
     }
 
 

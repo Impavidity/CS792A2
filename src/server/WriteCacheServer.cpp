@@ -5,6 +5,10 @@
 #include <iostream>
 #include "WriteCacheServer.h"
 
+WriteCacheServer::WriteCacheServer() {
+    writeVerifier = std::rand();
+}
+
 std::vector<WriteCacheServerEntry> WriteCacheServer::getWriteEntries(std::string &path) {
     auto entries = writeEntries.find(path);
     if (entries == writeEntries.end()) {
@@ -26,4 +30,8 @@ WriteCacheServer::write(const std::string &path, const std::string &buf, const i
     writeEntries[path].push_back(
             WriteCacheServerEntry {buf, size, offset}
     );
+}
+
+int64_t WriteCacheServer::getWriteVerifier() {
+    return writeVerifier;
 }
