@@ -103,7 +103,7 @@ void FileSystemInterface::read(thrift_read_reply &_return, const std::string& pa
 
 int32_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
-    std::ofstream os(fullPath, std::ios::binary);
+    std::ofstream os(fullPath, std::ios::binary | std::ios::in);
     os.seekp(offset, std::ios::beg);
     os.write(&buf[0], size);
     int32_t ret = os.tellp() - offset;
