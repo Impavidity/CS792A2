@@ -7,5 +7,5 @@ include_directories(../rpc/gen-cpp)
 #include_directories(../../libfuse/include)
 #include_directories(../../libfuse/lib)
 
-add_executable(server Server.cpp RPCServer.cpp FileSystemInterface.cpp ../rpc/gen-cpp/NFS_constants.cpp ../rpc/gen-cpp/NFS_types.cpp ../rpc/gen-cpp/NFS.cpp CacheServer.cpp CacheServer.h VNodeServer.cpp VNodeServer.h)
+add_executable(server Server.cpp RPCServer.cpp FileSystemInterface.cpp ../rpc/gen-cpp/NFS_constants.cpp ../rpc/gen-cpp/NFS_types.cpp ../rpc/gen-cpp/NFS.cpp CacheServer.cpp CacheServer.h VNodeServer.cpp VNodeServer.h WriteCacheServer.cpp WriteCacheServer.h WriteCacheServerEntry.h)
 target_link_libraries(server -I gen-cpp -lboost_system -lpthread -lglog -lthrift -lboost_serialization)

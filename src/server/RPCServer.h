@@ -20,6 +20,7 @@
 #include "NFS.h"
 #include "FileSystemInterface.h"
 #include "CacheServer.h"
+#include "WriteCacheServer.h"
 
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
