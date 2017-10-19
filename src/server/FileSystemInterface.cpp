@@ -94,6 +94,9 @@ int32_t FileSystemInterface::create(const std::string& path) {
 void FileSystemInterface::read(thrift_read_reply &_return, const std::string& path, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
     std::ifstream is(fullPath, std::ios::binary);
+    if (!is.good()) {
+        throw -1;
+    }
     is.seekg(offset, std::ios::beg);
     std::string buf(size, '\0');
     is.read(&buf[0], size);
