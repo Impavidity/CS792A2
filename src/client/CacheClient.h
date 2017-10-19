@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 #include "VNodeClient.h"
-#include "../WriteRecord.h"
+#include "WriteRecord.h"
 
 class CacheClient {
 public:
