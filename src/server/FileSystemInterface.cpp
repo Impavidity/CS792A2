@@ -114,6 +114,7 @@ int64_t FileSystemInterface::write(const std::string& path, const std::string &b
     os.seekp(offset, std::ios::beg);
     os.write(&buf[0], size);
     int32_t ret = os.tellp() - offset;
+    os.rdbuf()->pubsync();
     os.close();
     return ret;
 }
@@ -153,6 +154,7 @@ int64_t FileSystemInterface::writeAll(const std::string &path, const std::vector
         os.write(&(entry.buf)[0], entry.size);
         ret += os.tellp() - entry.offset;
     }
+    os.rdbuf()->pubsync();
     os.close();
     return ret;
 }
