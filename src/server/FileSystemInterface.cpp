@@ -105,6 +105,9 @@ void FileSystemInterface::read(thrift_read_reply &_return, const std::string& pa
 int64_t FileSystemInterface::write(const std::string& path, const std::string &buf, const int64_t size, const int64_t offset) {
     std::string fullPath = getFullPath(path);
     std::ofstream os(fullPath, std::ios::binary | std::ios::in);
+    if (!os.good()) {
+        throw -1;
+    }
     os.seekp(offset, std::ios::beg);
     os.write(&buf[0], size);
     int32_t ret = os.tellp() - offset;
@@ -138,6 +141,9 @@ void FileSystemInterface::statToThrift(struct stat *stbuf, thrift_stat &tstbuf) 
 int64_t FileSystemInterface::writeAll(const std::string &path, const std::vector<WriteCacheServerEntry> &writeVector) {
     std::string fullPath = getFullPath(path);
     std::ofstream os(fullPath, std::ios::binary | std::ios::in);
+    if (!os.good()) {
+        throw -1;
+    }
     int64_t ret;
     for (WriteCacheServerEntry entry : writeVector) {
         os.seekp(entry.offset, std::ios::beg);
