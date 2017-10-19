@@ -11,7 +11,6 @@
 #define CLIENT_DIR "/tmp/client"
 #define WRITES 10
 
-
 BOOST_AUTO_TEST_CASE(consistency) {
     chdir(CLIENT_DIR);
     std::string fileName = "testConsistency.test";
