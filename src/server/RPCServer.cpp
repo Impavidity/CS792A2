@@ -45,10 +45,8 @@ public:
             std::string relPath = cacheServer.getPath(fh);
             // Client may send empty path "" to server
             // This is used to check the file handler is valid or not
-            if (path != std::string(""))
-                relPath += '/' + path;
-            else
-                relPath = path;
+            //if (path != std::string("")
+            relPath += '/' + path;
             __ino_t inode = fileSystemInterface.getInode(relPath.c_str());
             try {
                 cacheServer.get(_return.fh, inode);

@@ -222,19 +222,20 @@ int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
     std::cout << "Find cache failed" << std::endl;
     //TODO : Cache
     vnode = VNodeClient::fsync(&root, tpath);
-    std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
-    if (pt == nullptr) return 0;
-    while (true) {
-      if (! checkWriteSync(pt, vnode.fsync_reply.write_verifier)) {
-        for (int i=0; i<pt->size(); i++) {
-          VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
-          (*pt)[i].write_verifier = temp.write_reply.write_verifier;
-        }
-      } else {
-        cache.flushWriteRecord(vnode.fh.inode);
-        break;
-      }
-    }
+//    std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
+//    if (pt == nullptr) return 0;
+//    while (true) {
+//      if (! checkWriteSync(pt, vnode.fsync_reply.write_verifier)) {
+//        for (int i=0; i<pt->size(); i++) {
+//          VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
+//          (*pt)[i].write_verifier = temp.write_reply.write_verifier;
+//        }
+//        vnode = VNodeClient::fsync(&root, tpath);
+//      } else {
+//        cache.flushWriteRecord(vnode.fh.inode);
+//        break;
+//      }
+//    }
     cache_vnode = &vnode;
   }
 
@@ -243,7 +244,7 @@ int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
 
 int VFSClient::nfs_fsync(const char* path, int datasync, struct fuse_file_info* fi) {
   std::string tpath(path);
-  std::cout << "VFSClient::nfs_release : path " << tpath << std::endl;
+  std::cout << "VFSClient::nfs_release datasync " <<  datasync << " : path " << tpath << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   if (cache_vnode != nullptr) {
@@ -252,19 +253,20 @@ int VFSClient::nfs_fsync(const char* path, int datasync, struct fuse_file_info* 
     std::cout << "Find cache failed" << std::endl;
     //TODO : Cache
     vnode = VNodeClient::fsync(&root, tpath);
-    std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
-    if (pt == nullptr) return 0;
-    while (true) {
-      if (! checkWriteSync(pt, vnode.fsync_reply.write_verifier)) {
-        for (int i=0; i<pt->size(); i++) {
-          VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
-          (*pt)[i].write_verifier = temp.write_reply.write_verifier;
-        }
-      } else {
-        cache.flushWriteRecord(vnode.fh.inode);
-        break;
-      }
-    }
+//    std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
+//    if (pt == nullptr) return 0;
+//    while (true) {
+//      if (! checkWriteSync(pt, vnode.fsync_reply.write_verifier)) {
+//        for (int i=0; i<pt->size(); i++) {
+//          VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
+//          (*pt)[i].write_verifier = temp.write_reply.write_verifier;
+//        }
+//        vnode = VNodeClient::fsync(&root, tpath);
+//      } else {
+//        cache.flushWriteRecord(vnode.fh.inode);
+//        break;
+//      }
+//    }
     cache_vnode = &vnode;
   }
 
