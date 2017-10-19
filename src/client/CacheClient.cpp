@@ -26,3 +26,30 @@ int CacheClient::removePath(std::string path) {
     path2vnode.erase(it);
   return 0;
 }
+
+int CacheClient::insertWriteRecord(int64_t inode, WriteRecord record) {
+  auto pos = writeBuffer.find(inode);
+  if (pos != writeBuffer.end()) {
+    (pos->second).push_back(record);
+  } else {
+    writeBuffer[inode] = std::vector<WriteRecord>();
+    writeBuffer[inode].push_back(record);
+  }
+  return 0;
+}
+
+int CacheClient::flushWriteRecord(int64_t inode) {
+  auto pos = writeBuffer.find(inode);
+  if (pos != writeBuffer.end()) {
+    std::vector<WriteRecord>().swap(pos->second);
+  }
+  return 0;
+}
+
+std::vector<WriteRecord> * CacheClient::getWriteVectorPT(int64_t inode) {
+  auto pos = writeBuffer.find(inode);
+  if (pos != writeBuffer.end())
+    return &(pos->second);
+  else
+    return nullptr;
+}

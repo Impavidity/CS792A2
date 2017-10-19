@@ -24,6 +24,10 @@ static std::vector<std::string> split(const std::string &s, char delim) {
   return elems;
 }
 
+static bool checkTime(VNodeClient cache, VNodeClient update) {
+  return false;
+}
+
 RPCClient* VNodeClient::rpcClient;
 
 VNodeClient::VNodeClient(RPCClient *rpcClient) {
@@ -37,11 +41,18 @@ VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
   std::vector<std::string> paths = split(path, '/');
   std::cout << "Full Path for lookup " << path << " The size is " << paths.size() <<std::endl;
   thrift_file_handler cur_fh = vnode->fh;
+  thrift_file_handler_reply reply;
+  bool first = false;
   for (std::string token: paths) {
-    if (token == std::string("")) continue;
-    cur_fh = rpcClient->lookup(cur_fh, token).fh;
-    if (cur_fh.inode == 0) {
+    if (token == std::string("") && !first) {
+      first = true;
+      continue;
+    }
+    reply = rpcClient->lookup(cur_fh, token);
+    cur_fh = reply.fh;
+    if (reply.ret == -ENOENT) {
       std::cout << "Dir/File does not exist during lookup" << std::endl;
+      cur_fh.inode = 0;
       break;
     }
   }
@@ -51,8 +62,16 @@ VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
 }
 
 
-VNodeClient VNodeClient::getattr(VNodeClient *vnode, std::string path) {
-  VNodeClient lookup_vnode = lookup(vnode, path);
+VNodeClient VNodeClient::getattr(VNodeClient *vnode, std::string path, VNodeClient* cache) {
+  VNodeClient lookup_vnode;
+  if (cache != nullptr) {
+    lookup_vnode = lookup(cache, std::string(""));
+    if (lookup_vnode.fh.inode == 0) {
+      lookup_vnode = lookup(vnode, path);
+    }
+  } else {
+    lookup_vnode = lookup(vnode, path);
+  }
   std::cout << "In the getattr, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
   if (lookup_vnode.fh.inode == 0) {
     lookup_vnode.getattr_reply.ret = -ENOENT;
@@ -62,8 +81,20 @@ VNodeClient VNodeClient::getattr(VNodeClient *vnode, std::string path) {
   return lookup_vnode;
 }
 
-VNodeClient VNodeClient::readdir(VNodeClient *vnode, std::string path) {
-  VNodeClient lookup_vnode = lookup(vnode, path);
+VNodeClient VNodeClient::readdir(VNodeClient *vnode, std::string path, VNodeClient* cache) {
+  VNodeClient lookup_vnode;
+  if (cache != nullptr) {
+    lookup_vnode = getattr(cache, std::string(""));
+    if (lookup_vnode.fh.inode == 0) {
+      lookup_vnode = getattr(vnode, path);
+    } else { // If the file handler is valid, then we check the cache is valid or not
+      if (checkTime(*cache, lookup_vnode)) {
+        return *cache;
+      }
+    }
+  } else {
+    lookup_vnode = getattr(vnode, path);
+  }
   std::cout << "In the readdir, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
   lookup_vnode.readdir_reply = rpcClient->nfs_readdir(lookup_vnode.fh);
   return lookup_vnode;

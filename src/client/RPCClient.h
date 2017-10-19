@@ -42,10 +42,11 @@ public:
   thrift_file_handler_reply nfs_mkdir(thrift_file_handler fh, std::string name);
   int nfs_rmdir(thrift_file_handler fh);
   thrift_read_reply nfs_read(thrift_file_handler fh, int64_t size, int64_t offset);
-  int nfs_write(thrift_file_handler fh, const char* buf, int64_t size, int64_t offset);
+  thrift_write_reply nfs_write(thrift_file_handler fh, const char* buf, int64_t size, int64_t offset);
   thrift_file_handler_reply nfs_create(thrift_file_handler fh, std::string name);
   int nfs_unlink(thrift_file_handler fh);
-  int nfs_fsync(thrift_file_handler fh);
+  thrift_write_reply nfs_fsync(thrift_file_handler fh);
+  void pooling();
 
 };
 

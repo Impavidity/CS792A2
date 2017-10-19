@@ -9,6 +9,14 @@ RPCClient VFSClient::rpcClient;
 VNodeClient VFSClient::root(&rpcClient);
 CacheClient VFSClient::cache;
 
+static bool checkWriteSync(std::vector<WriteRecord>* pt, int64_t verifier) {
+  for (int i=0; i<pt->size(); i++) {
+    if ((*pt)[i].write_verifier != verifier)
+      return false;
+  }
+  return true;
+}
+
 
 int VFSClient::mount(char* rootPath) {
   thrift_file_handler fh;
@@ -24,18 +32,25 @@ int VFSClient::mount(char* rootPath) {
 
 int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_info *fi) {
   // Use vnode the process the path component by component
+  // No cache for getattr reply(just saved but needs updated before every new action)
+  // But check file handler before getattr.
+  // We always need to get mtime to check
   std::string tpath(path);
   std::cout << "in getattr " << tpath << std::endl;
   std::cout << "-------------Cache-Getattr-------------" << std::endl;
   for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.getattr_state << " ---- " << pair.second.getattr_reply << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
-  if (cache_vnode != nullptr && cache_vnode->getattr_state ==0) {
+  // Cache Consistence here
+  // If timeout, set all state to zero (readdir, read)
+  // Another problem is that we cache the vnode and filehandler.
+  // If cannot find filehandler in lookup, just try lookup from root with fullpath again and updated the vnode
+  if (cache_vnode != nullptr) {
     std::cout << "Find cache, but no getattr info" << std::endl;
-    vnode = VNodeClient::getattr(&root, tpath);
+    vnode = VNodeClient::getattr(&root, tpath, cache_vnode);
     cache_vnode->getattr_reply = vnode.getattr_reply;
     cache_vnode->getattr_state = 1;
-  } else if (cache_vnode== nullptr) {
+  } else {
     vnode = VNodeClient::getattr(&root, tpath);
     if (vnode.getattr_reply.ret > -1) {
       vnode.getattr_state = 1;
@@ -63,9 +78,14 @@ int VFSClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, 
   VNodeClient* cache_vnode = cache.checkPath(path);
   std::cout << "checking path " << path << std::endl;
   VNodeClient vnode;
-  if (cache_vnode != nullptr && cache_vnode->readdir_state ==0) {
+  if (cache_vnode != nullptr && cache_vnode->readdir_state==1) {
+    vnode = VNodeClient::readdir(&root, tpath, cache_vnode);
+    cache_vnode = &vnode;
+  }
+  if (cache_vnode != nullptr && cache_vnode->readdir_state==0) {
     std::cout << "Find cache, but no readdir info" << std::endl;
-    vnode = VNodeClient::readdir(&root, tpath); //cache_vnode, std::string("")
+    //vnode = VNodeClient::readdir(&root, tpath); //cache_vnode, std::string("")
+    vnode = VNodeClient::readdir(cache_vnode, std::string(""));
     cache_vnode->readdir_reply = vnode.readdir_reply;
     cache_vnode->readdir_state = 1;
   } else if (cache_vnode == nullptr) {
@@ -121,13 +141,6 @@ int VFSClient::nfs_rmdir(const char *path) {
   };
   return vnode.rmdir_reply;
 }
-
-//int VFSClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info *fi) {
-//  int fh;
-//  rpcClient.nfs_create(path, mode, fi);
-//  return 0;
-//}
-
 
 
 void* VFSClient::nfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg) {
@@ -190,12 +203,12 @@ int VFSClient::nfs_write(const char *path, const char *buf, size_t size, off_t o
     //TODO : Cache
   } else {
     std::cout << "Find cache failed" << std::endl;
-    // TODO : Cache Write
     vnode = VNodeClient::write(&root, tpath, buf, size, offset);
+    cache.insertWriteRecord(vnode.fh.inode, WriteRecord(tpath, std::string(buf), size, offset, vnode.write_reply.write_verifier, *fi));
     cache.insertPath(tpath, vnode);
     cache_vnode = &vnode;
   }
-  return cache_vnode->write_reply;
+  return (int) cache_vnode->write_reply.ret;
 }
 
 int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
@@ -209,7 +222,19 @@ int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
     std::cout << "Find cache failed" << std::endl;
     //TODO : Cache
     vnode = VNodeClient::fsync(&root, tpath);
-    // TODO: Cache
+    std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
+    if (pt == nullptr) return 0;
+    while (true) {
+      if (! checkWriteSync(pt, vnode.write_reply.write_verifier)) {
+        for (int i=0; i<pt->size(); i++) {
+          VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
+          (*pt)[i].write_verifier = temp.write_reply.write_verifier;
+        }
+      } else {
+        cache.flushWriteRecord(vnode.fh.inode);
+        break;
+      }
+    }
     cache_vnode = &vnode;
   }
 
@@ -227,7 +252,19 @@ int VFSClient::nfs_fsync(const char* path, int datasync, struct fuse_file_info* 
     std::cout << "Find cache failed" << std::endl;
     //TODO : Cache
     vnode = VNodeClient::fsync(&root, tpath);
-    // TODO: Cache
+    std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
+    if (pt == nullptr) return 0;
+    while (true) {
+      if (! checkWriteSync(pt, vnode.write_reply.write_verifier)) {
+        for (int i=0; i<pt->size(); i++) {
+          VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
+          (*pt)[i].write_verifier = temp.write_reply.write_verifier;
+        }
+      } else {
+        cache.flushWriteRecord(vnode.fh.inode);
+        break;
+      }
+    }
     cache_vnode = &vnode;
   }
 

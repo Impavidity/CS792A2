@@ -9,18 +9,19 @@
 #include <vector>
 #include <string>
 #include "VNodeClient.h"
-#include "../common/WriteRecord.h"
+#include "../WriteRecord.h"
 
 class CacheClient {
 public:
   CacheClient() {}
   std::map<std::string, VNodeClient> path2vnode;
-  //std::vector<WriteRecord*> writeBuffer;
+  std::map<int64_t,std::vector<WriteRecord>> writeBuffer;
   int insertPath(std::string path, VNodeClient pv);
   int removePath(std::string path);
   VNodeClient* checkPath(std::string);
-//  int insertWriteRecord(WriteRecord* record);
-//  int flushWriteRecord(WriteRecord* record);
+  int insertWriteRecord(int64_t inode, WriteRecord record);
+  std::vector<WriteRecord>* getWriteVectorPT(int64_t inode);
+  int flushWriteRecord(int64_t);
 };
 
 

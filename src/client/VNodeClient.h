@@ -26,17 +26,19 @@ public:
   thrift_read_reply read_reply;
   int read_state;
   int open_state;
-  int write_reply;
+  //int write_reply;
+  thrift_write_reply write_reply;
   int unlink_reply;
   thrift_file_handler_reply create_reply;
-  int fsync_reply;
+  //int fsync_reply;
+  thrift_write_reply fsync_reply;
 
 
   // Specify static function for VNode. Generally pass the VNode pointer as one argument
   static VNodeClient lookup(VNodeClient* vnode, std::string path);
-  static VNodeClient getattr(VNodeClient* vnode, std::string path);
-  static VNodeClient readdir(VNodeClient* vnode, std::string path);
-  static VNodeClient mkdir(VNodeClient* vnode, std::string path, std::string name);
+  static VNodeClient getattr(VNodeClient* vnode, std::string path, VNodeClient* cache=nullptr);
+  static VNodeClient readdir(VNodeClient* vnode, std::string path, VNodeClient* cache=nullptr); // cache results, if timeout, call rpc and update readdir_reply
+  static VNodeClient mkdir(VNodeClient* vnode, std::string path, std::string name); //
   static VNodeClient rmdir(VNodeClient* vnode, std::string path);
   static VNodeClient open(VNodeClient* vnode, std::string path);
   static VNodeClient read(VNodeClient* vnode, std::string path, int64_t size, int64_t offset);

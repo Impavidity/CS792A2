@@ -48,14 +48,7 @@ thrift_file_handler_reply RPCClient::mount(const char *path) {
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -71,14 +64,7 @@ thrift_file_handler_reply RPCClient::lookup(thrift_file_handler fh, std::string 
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -93,14 +79,7 @@ thrift_getattr_reply RPCClient::nfs_getattr(thrift_file_handler fh) {
       break;
     } catch (TException &tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -115,14 +94,7 @@ thrift_readdir_reply RPCClient::nfs_readdir(thrift_file_handler fh) {
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -137,14 +109,7 @@ thrift_file_handler_reply RPCClient::nfs_mkdir(thrift_file_handler fh, std::stri
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -159,14 +124,7 @@ int RPCClient::nfs_rmdir(thrift_file_handler fh) {
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -181,40 +139,26 @@ thrift_read_reply RPCClient::nfs_read(thrift_file_handler fh, int64_t size, int6
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
   return reply;
 }
 
-int RPCClient::nfs_write(thrift_file_handler fh, const char *buf, int64_t size, int64_t offset) {
-  int ret;
+thrift_write_reply RPCClient::nfs_write(thrift_file_handler fh, const char *buf, int64_t size, int64_t offset) {
+  thrift_write_reply reply;
   while (true) {
     try {
-      ret = this->client.write(fh, std::string(buf), size, offset);
+      this->client.write(reply, fh, std::string(buf), size, offset);
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
-  return ret;
+  return reply;
 }
 
 thrift_file_handler_reply RPCClient::nfs_create(thrift_file_handler fh, std::string name) {
@@ -225,14 +169,7 @@ thrift_file_handler_reply RPCClient::nfs_create(thrift_file_handler fh, std::str
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
@@ -247,40 +184,38 @@ int RPCClient::nfs_unlink(thrift_file_handler fh) {
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
   return ret;
 }
 
-int RPCClient::nfs_fsync(thrift_file_handler fh) {
-  int ret;
+thrift_write_reply RPCClient::nfs_fsync(thrift_file_handler fh) {
+  thrift_write_reply reply;
   while (true) {
     try{
-      ret = this->client.fsync(fh);
+      this->client.fsync(reply, fh);
       break;
     } catch (TException& tx) {
       //std::cout << "ERROR: " << tx.what() << std::endl;
-      transport->close();
-      while (true)
-        try{
-          transport->open();
-          break;
-        } catch (TException& tx) {
-          continue;
-        }
+      pooling();
       continue;
     }
   }
-  return ret;
+  return reply;
+}
+
+void RPCClient::pooling() {
+  transport->close();
+  while (true)
+    try{
+      transport->open();
+      break;
+    } catch (TException& tx) {
+      usleep(1000000);
+      continue;
+    }
 }
 
 //int RPCClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info* fi) {
