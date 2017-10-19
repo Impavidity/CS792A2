@@ -225,7 +225,7 @@ int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
     std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
     if (pt == nullptr) return 0;
     while (true) {
-      if (! checkWriteSync(pt, vnode.write_reply.write_verifier)) {
+      if (! checkWriteSync(pt, vnode.fsync_reply.write_verifier)) {
         for (int i=0; i<pt->size(); i++) {
           VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
           (*pt)[i].write_verifier = temp.write_reply.write_verifier;
@@ -255,7 +255,7 @@ int VFSClient::nfs_fsync(const char* path, int datasync, struct fuse_file_info* 
     std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
     if (pt == nullptr) return 0;
     while (true) {
-      if (! checkWriteSync(pt, vnode.write_reply.write_verifier)) {
+      if (! checkWriteSync(pt, vnode.fsync_reply.write_verifier)) {
         for (int i=0; i<pt->size(); i++) {
           VNodeClient temp = VNodeClient::write(&root, (*pt)[i].path, (*pt)[i].content.c_str(), (*pt)[i].size, (*pt)[i].offset);
           (*pt)[i].write_verifier = temp.write_reply.write_verifier;
