@@ -39,7 +39,7 @@ VNodeClient::VNodeClient(RPCClient *rpcClient) {
 
 VNodeClient VNodeClient::lookup(VNodeClient *vnode, std::string path) {
   std::vector<std::string> paths = split(path, '/');
-  std::cout << "Full Path for lookup " << path << " The size is " << paths.size() <<std::endl;
+  //std::cout << "Full Path for lookup " << path << " The size is " << paths.size() <<std::endl;
   thrift_file_handler cur_fh = vnode->fh;
   thrift_file_handler_reply reply;
   bool first = false;
@@ -72,7 +72,7 @@ VNodeClient VNodeClient::getattr(VNodeClient *vnode, std::string path, VNodeClie
   } else {
     lookup_vnode = lookup(vnode, path);
   }
-  std::cout << "In the getattr, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
+  //std::cout << "In the getattr, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
   if (lookup_vnode.fh.inode == 0) {
     lookup_vnode.getattr_reply.ret = -ENOENT;
     return lookup_vnode;
@@ -95,7 +95,7 @@ VNodeClient VNodeClient::readdir(VNodeClient *vnode, std::string path, VNodeClie
   } else {
     lookup_vnode = getattr(vnode, path);
   }
-  std::cout << "In the readdir, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
+  //std::cout << "In the readdir, the lookup inode # is " << lookup_vnode.fh.inode << std::endl;
   lookup_vnode.readdir_reply = rpcClient->nfs_readdir(lookup_vnode.fh);
   return lookup_vnode;
 }

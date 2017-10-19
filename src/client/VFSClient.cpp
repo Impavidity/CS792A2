@@ -36,9 +36,9 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
   // But check file handler before getattr.
   // We always need to get mtime to check
   std::string tpath(path);
-  std::cout << "in getattr " << tpath << std::endl;
-  std::cout << "-------------Cache-Getattr-------------" << std::endl;
-  for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.getattr_state << " ---- " << pair.second.getattr_reply << std::endl;
+  //std::cout << "in getattr " << tpath << std::endl;
+  //std::cout << "-------------Cache-Getattr-------------" << std::endl;
+  //for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.getattr_state << " ---- " << pair.second.getattr_reply << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   // Cache Consistence here
@@ -46,7 +46,7 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
   // Another problem is that we cache the vnode and filehandler.
   // If cannot find filehandler in lookup, just try lookup from root with fullpath again and updated the vnode
   if (cache_vnode != nullptr) {
-    std::cout << "Find cache, but no getattr info" << std::endl;
+    //std::cout << "Find cache, but no getattr info" << std::endl;
     vnode = VNodeClient::getattr(&root, tpath, cache_vnode);
     cache_vnode->getattr_reply = vnode.getattr_reply;
     cache_vnode->getattr_state = 1;
@@ -72,24 +72,24 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
 int VFSClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi,
                            enum fuse_readdir_flags flags) {
   std::string tpath(path);
-  std::cout << "in readdir " << tpath << std::endl;
-  std::cout << "-------------Cache-Readdir-------------" << std::endl;
-  for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.readdir_state << " ---- " << pair.second.readdir_reply << std::endl;
+  //std::cout << "in readdir " << tpath << std::endl;
+  //std::cout << "-------------Cache-Readdir-------------" << std::endl;
+  //for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.readdir_state << " ---- " << pair.second.readdir_reply << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(path);
-  std::cout << "checking path " << path << std::endl;
+  //std::cout << "checking path " << path << std::endl;
   VNodeClient vnode;
   if (cache_vnode != nullptr && cache_vnode->readdir_state==1) {
     vnode = VNodeClient::readdir(&root, tpath, cache_vnode);
     cache_vnode = &vnode;
   }
   if (cache_vnode != nullptr && cache_vnode->readdir_state==0) {
-    std::cout << "Find cache, but no readdir info" << std::endl;
+    //std::cout << "Find cache, but no readdir info" << std::endl;
     //vnode = VNodeClient::readdir(&root, tpath); //cache_vnode, std::string("")
     vnode = VNodeClient::readdir(cache_vnode, std::string(""));
     cache_vnode->readdir_reply = vnode.readdir_reply;
     cache_vnode->readdir_state = 1;
   } else if (cache_vnode == nullptr) {
-    std::cout << "Find cache failed" << std::endl;
+    //std::cout << "Find cache failed" << std::endl;
     vnode = VNodeClient::readdir(&root, tpath);
     vnode.readdir_state = 1;
     cache.insertPath(tpath, vnode);
@@ -104,16 +104,16 @@ int VFSClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, 
 
 int VFSClient::nfs_mkdir(const char *path, mode_t mode) {
   std::string tpath(path);
-  std::cout  << "****************mkdir*****************" << std::endl;
-  std::cout << "path for mkdir " << tpath << std::endl;
+  //std::cout  << "****************mkdir*****************" << std::endl;
+  //std::cout << "path for mkdir " << tpath << std::endl;
   auto index = tpath.rfind('/');
   std::string first_part, second_part;
   if (index !=std::string::npos)  {
     first_part = tpath.substr(0, index);
     second_part = tpath.substr(index+1);
-    std::cout << "Split path in mkdir " << first_part << " " << second_part << std::endl;
+    //std::cout << "Split path in mkdir " << first_part << " " << second_part << std::endl;
   }
-  std::cout << "in making dir " << tpath << std::endl;
+  //std::cout << "in making dir " << tpath << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(first_part);
   VNodeClient vnode;
   if (cache_vnode != nullptr) {
@@ -127,7 +127,7 @@ int VFSClient::nfs_mkdir(const char *path, mode_t mode) {
 
 int VFSClient::nfs_rmdir(const char *path) {
   std::string tpath(path);
-  std::cout << "In RMDIR" << path << std::endl;
+  //std::cout << "In RMDIR" << path << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   if (cache_vnode != nullptr) {
@@ -151,7 +151,7 @@ void* VFSClient::nfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg) 
 
 int VFSClient::nfs_open(const char *path, struct fuse_file_info *fi) {
   std::string tpath(path);
-  std::cout << "VFSClient::nfs_open : path " << tpath << std::endl;
+  //std::cout << "VFSClient::nfs_open : path " << tpath << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   // TODO: cache
@@ -164,16 +164,16 @@ int VFSClient::nfs_open(const char *path, struct fuse_file_info *fi) {
 
 int VFSClient::nfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
   std::string tpath(path);
-  std::cout << "VFSClient::nfs_read : path " << tpath << std::endl;
+  //std::cout << "VFSClient::nfs_read : path " << tpath << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   if (cache_vnode != nullptr && cache_vnode->read_state==0) {
-    std::cout << "Find cache, but no read content info" << std::endl;
+    //std::cout << "Find cache, but no read content info" << std::endl;
     vnode = VNodeClient::read(&root, tpath, size, offset); //cache_vnode, std::string("")
     cache_vnode->read_reply = vnode.read_reply;
     cache_vnode->read_state = 1;
   } else if (cache_vnode == nullptr) {
-    std::cout << "Find cache failed" << std::endl;
+    //std::cout << "Find cache failed" << std::endl;
     vnode = VNodeClient::read(&root, tpath, size, offset);
     vnode.read_state = 1;
     cache.insertPath(tpath, vnode);
@@ -202,7 +202,7 @@ int VFSClient::nfs_write(const char *path, const char *buf, size_t size, off_t o
   if (cache_vnode != nullptr) {
     //TODO : Cache
   } else {
-    std::cout << "Find cache failed" << std::endl;
+    //std::cout << "Find cache failed" << std::endl;
     vnode = VNodeClient::write(&root, tpath, buf, size, offset);
     cache.insertWriteRecord(vnode.fh.inode, WriteRecord(tpath, std::string(buf), size, offset, vnode.write_reply.write_verifier, *fi));
     cache.insertPath(tpath, vnode);
@@ -219,7 +219,7 @@ int VFSClient::nfs_release(const char* path, struct fuse_file_info* fi) {
   if (cache_vnode != nullptr) {
     //TODO : Cache
   } else {
-    std::cout << "Find cache failed" << std::endl;
+    //std::cout << "Find cache failed" << std::endl;
     //TODO : Cache
     vnode = VNodeClient::fsync(&root, tpath);
     std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
@@ -250,7 +250,7 @@ int VFSClient::nfs_fsync(const char* path, int datasync, struct fuse_file_info* 
   if (cache_vnode != nullptr) {
     //TODO: Cache
   } else {
-    std::cout << "Find cache failed" << std::endl;
+    //std::cout << "Find cache failed" << std::endl;
     //TODO : Cache
     vnode = VNodeClient::fsync(&root, tpath);
     std::vector<WriteRecord>* pt = cache.getWriteVectorPT(vnode.fh.inode);
@@ -281,7 +281,7 @@ int VFSClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info *
   if (index !=std::string::npos)  {
     first_part = tpath.substr(0, index);
     second_part = tpath.substr(index+1);
-    std::cout << "Split path in create file " << first_part << " " << second_part << std::endl;
+    //std::cout << "Split path in create file " << first_part << " " << second_part << std::endl;
   }
   VNodeClient* cache_vnode = cache.checkPath(first_part);
   VNodeClient vnode;
@@ -295,6 +295,7 @@ int VFSClient::nfs_create(const char *path, mode_t mode, struct fuse_file_info *
 
 int VFSClient::nfs_unlink(const char *path) {
   std::string tpath(path);
+  std::cout << "VFSClient::nfs_unlink " << tpath << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   if (cache_vnode != nullptr) {

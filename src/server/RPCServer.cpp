@@ -59,7 +59,7 @@ public:
         } catch (int e) {
             _return.ret = -ENOENT;
         }
-        std::cout << "lookup " << path << std::endl;
+        std::cout << "lookup " << path <<  "  " << _return << std::endl;
     }
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
@@ -157,6 +157,7 @@ public:
         try {
             std::string path = cacheServer.getPath(fh);
             fileSystemInterface.read(_return, path, size, offset);
+            std::cout << "Reading path " << path << std::endl;
             printf("read\n");
         } catch (int e) {
             _return.ret = -ENONET;

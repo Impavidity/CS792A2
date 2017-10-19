@@ -25,8 +25,8 @@ void RPCClient::setRootPath(char *rootPath) {
 
 void RPCClient::startClient() {
   TSocket* socket = new TSocket(this->hostName, this->port);
-  socket->setRecvTimeout(500);
-  socket->setSendTimeout(500);
+  //socket->setRecvTimeout(500);
+  //socket->setSendTimeout(500);
   this->socket = boost::shared_ptr<TTransport>(socket);
   this->transport = boost::shared_ptr<TTransport>(new TBufferedTransport(this->socket));
   this->protocol = boost::shared_ptr<TProtocol>(new TBinaryProtocol(this->transport));
@@ -36,7 +36,7 @@ void RPCClient::startClient() {
       this->transport->open();
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       continue;
     }
   }
@@ -50,7 +50,7 @@ thrift_file_handler_reply RPCClient::mount(const char *path) {
       this->client.mount(fh, tpath);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -66,7 +66,7 @@ thrift_file_handler_reply RPCClient::lookup(thrift_file_handler fh, std::string 
       this->client.lookup(new_fh, fh, tpath);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -81,7 +81,7 @@ thrift_getattr_reply RPCClient::nfs_getattr(thrift_file_handler fh) {
       this->client.getattr(reply, fh);
       break;
     } catch (TException &tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -96,7 +96,7 @@ thrift_readdir_reply RPCClient::nfs_readdir(thrift_file_handler fh) {
       this->client.readdir(reply, fh);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -111,7 +111,7 @@ thrift_file_handler_reply RPCClient::nfs_mkdir(thrift_file_handler fh, std::stri
       this->client.mkdir(reply, fh, name);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -126,7 +126,7 @@ int RPCClient::nfs_rmdir(thrift_file_handler fh) {
       ret = this->client.rmdir(fh);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -141,7 +141,7 @@ thrift_read_reply RPCClient::nfs_read(thrift_file_handler fh, int64_t size, int6
       this->client.read(reply, fh, size, offset);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -156,7 +156,7 @@ thrift_write_reply RPCClient::nfs_write(thrift_file_handler fh, const char *buf,
       this->client.write(reply, fh, std::string(buf), size, offset);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -171,7 +171,7 @@ thrift_file_handler_reply RPCClient::nfs_create(thrift_file_handler fh, std::str
       this->client.create(reply,fh, name);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -186,7 +186,7 @@ int RPCClient::nfs_unlink(thrift_file_handler fh) {
       ret = this->client.unlink(fh);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -201,7 +201,7 @@ thrift_write_reply RPCClient::nfs_fsync(thrift_file_handler fh) {
       this->client.fsync(reply, fh);
       break;
     } catch (TException& tx) {
-      //std::cout << "ERROR: " << tx.what() << std::endl;
+      std::cout << "ERROR: " << tx.what() << std::endl;
       pooling();
       continue;
     }
@@ -216,6 +216,7 @@ void RPCClient::pooling() {
       transport->open();
       break;
     } catch (TException& tx) {
+      transport->close();
       usleep(1000000);
       continue;
     }
