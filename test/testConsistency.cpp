@@ -14,7 +14,8 @@
 BOOST_AUTO_TEST_CASE(consistency) {
     chdir(CLIENT_DIR);
     std::string fileName = "testConsistency.test";
-    fileName += std::rand();
+    std::srand(clock());
+    fileName += std::to_string(std::rand());
     std::ofstream os(fileName);
     for (int i = 0; i < WRITES; i++) {
         os << i << std::endl;
