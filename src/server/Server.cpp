@@ -8,7 +8,11 @@ int main(int argc, char **argv) {
     std::srand(std::time(0));
     int port = atoi(argv[1]);
     std::string mountPoint = argv[2];
-    RPCServer server(port, mountPoint);
+    bool allowCommit = true;
+    if (argc >= 4) {
+        allowCommit = (atoi(argv[3]) != 0);
+    }
+    RPCServer server(port, mountPoint, allowCommit);
     server.start();
     return 0;
 }

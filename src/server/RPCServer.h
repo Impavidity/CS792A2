@@ -35,7 +35,7 @@ public:
   boost::shared_ptr<TProtocolFactory> protocolFactory;
   boost::shared_ptr<concurrency::PosixThreadFactory> threadFactory;
   boost::shared_ptr<concurrency::ThreadManager> threadManager;
-  RPCServer(int port, std::string mountRoot);
+  RPCServer(int port, std::string mountRoot, bool allowCommit);
   void start();
 };
 

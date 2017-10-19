@@ -18,8 +18,11 @@ private:
 
     thrift_file_handler rootFh;
 
+    bool allowCommit = true;
+
 public:
-    NFSHandler(std::string root) : fileSystemInterface(root), cacheServer(root) {
+    NFSHandler(std::string root, bool allowCommit) : fileSystemInterface(root), cacheServer(root) {
+        this->allowCommit = allowCommit;
         __ino_t inode = fileSystemInterface.getInode("");
         try {
             cacheServer.get(rootFh, inode);
@@ -164,9 +167,13 @@ public:
     void write(thrift_write_reply& _return, const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
         try {
             std::string path = cacheServer.getPath(fh);
-            writeCache.write(path, buf, size, offset);
+            if (allowCommit) {
+                writeCache.write(path, buf, size, offset);
+                _return.ret = size;
+            } else {
+                _return.ret = fileSystemInterface.write(path, buf, size, offset);
+            }
             printf("write\n");
-            _return.ret = size;
         } catch (int e) {
             _return.ret = -ENONET;
         }
@@ -188,10 +195,10 @@ public:
 
 };
 
-RPCServer::RPCServer(int port, std::string mountRoot) {
+RPCServer::RPCServer(int port, std::string mountRoot, bool allowCommit) {
 
 
-    shared_ptr <NFSHandler> handler(new NFSHandler(mountRoot));
+    shared_ptr <NFSHandler> handler(new NFSHandler(mountRoot, allowCommit));
     this->processor = shared_ptr<TProcessor>(new NFSProcessor(handler));
     this->serverTransport = shared_ptr<TServerTransport>(new TServerSocket(port));
     this->transportFactory = shared_ptr<TTransportFactory>(new TBufferedTransportFactory());
