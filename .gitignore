@@ -39,3 +39,6 @@ Makefile
 NFS_FUSE.cbp
 cmake-build-debug/
 cmake_install.cmake
+CTestTestfile.cmake
+DartConfiguration.tcl
+Testing/
