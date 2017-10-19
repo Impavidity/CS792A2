@@ -9,8 +9,8 @@
 #include <iostream>
 
 #define CLIENT_DIR "/tmp/client"
-#define WRITESIZE 100000
-#define TPTWRITES 1000
+#define WRITESIZE 102400
+#define TPTWRITES 1024
 
 BOOST_AUTO_TEST_CASE(throughput) {
     std::ifstream ris("/dev/urandom");

@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(consistency) {
     for (int i = 0; i < WRITES; i++) {
         os << i << std::endl;
         std::cout << i << std::endl;
-        sleep(1);
+        usleep(500000);
     }
     os.close();
     std::ifstream is(fileName);
