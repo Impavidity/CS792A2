@@ -25,8 +25,8 @@ void RPCClient::setRootPath(char *rootPath) {
 
 void RPCClient::startClient() {
   TSocket* socket = new TSocket(this->hostName, this->port);
-  //socket->setRecvTimeout(500);
-  //socket->setSendTimeout(500);
+  socket->setRecvTimeout(500);
+  socket->setSendTimeout(500);
   this->socket = boost::shared_ptr<TTransport>(socket);
   this->transport = boost::shared_ptr<TTransport>(new TBufferedTransport(this->socket));
   this->protocol = boost::shared_ptr<TProtocol>(new TBinaryProtocol(this->transport));
