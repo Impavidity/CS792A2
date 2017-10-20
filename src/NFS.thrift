@@ -70,7 +70,7 @@ service NFS {
     thrift_file_handler_reply mkdir(1:thrift_file_handler fh, 2:string name);
     i32 rmdir(1:thrift_file_handler fh);
     i32 unlink(1:thrift_file_handler fh);
-    i32 rename(1:thrift_file_handler fh, 2:string toname);
+    i32 rename(1:thrift_file_handler fh, 2:thrift_file_handler tofh, 3:string toname, 4:i32 flags);
     thrift_file_handler_reply create(1:thrift_file_handler fh, 2:string name);
     thrift_read_reply read(1:thrift_file_handler fh, 2:i64 size, 3:i64 offset);
     thrift_write_reply write(1:thrift_file_handler fh, 2:binary buf, 3:i64 size, 4:i64 offset);
