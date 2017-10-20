@@ -59,7 +59,6 @@ public:
         } catch (int e) {
             _return.ret = -ENOENT;
         }
-        std::cout << "lookup " << path <<  "  " << _return << std::endl;
     }
 
     void readdir(thrift_readdir_reply &_return, const thrift_file_handler &fh) {
@@ -110,7 +109,7 @@ public:
         } catch (int e){
             _return.ret = -ENONET;
         }
-      std::cout << "get attr return " << _return << std::endl;
+//      std::cout << "get attr return " << _return << std::endl;
     }
 
     int32_t unlink(const thrift_file_handler &fh) {
@@ -162,7 +161,7 @@ public:
         } catch (int e) {
             _return.ret = -ENONET;
         }
-      std::cout << "Return In Read " << _return << std::endl;
+//      std::cout << "Return In Read " << _return << std::endl;
     }
 
     void write(thrift_write_reply& _return, const thrift_file_handler& fh, const std::string& buf, const int64_t size, const int64_t offset) {
@@ -174,7 +173,7 @@ public:
             } else {
                 _return.ret = fileSystemInterface.write(path, buf, size, offset);
             }
-            printf("write\n");
+//            printf("write\n");
         } catch (int e) {
             _return.ret = -ENONET;
         }
@@ -190,6 +189,7 @@ public:
         } catch (int e) {
             _return.ret = -ENONET;
         }
+        std::cout << "fsync ret " << _return.ret << std::endl;
         _return.write_verifier = writeCache.getWriteVerifier();
     }
 

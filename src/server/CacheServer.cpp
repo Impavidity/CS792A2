@@ -17,9 +17,6 @@ CacheServer::CacheServer(const std::string& root) {
 }
 
 std::string CacheServer::getPath(const thrift_file_handler &fh) {
-    for (auto pair : vnodes) {
-        std::cout << pair.first << " --- " << pair.second.getPath() << std::endl;
-    }
     if (fh.system_id != systemId) {
         throw -1;
     }
