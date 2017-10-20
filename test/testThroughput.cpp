@@ -7,11 +7,12 @@
 #include <boost/test/unit_test.hpp>
 #include <fstream>
 #include <iostream>
+#include <chrono>
 
 #define CLIENT_DIR "/tmp/client"
-#define WRITESIZE 1024000
+#define WRITESIZE 102400
 #define TPTWRITES 1024
-#define TRIES 10
+#define TRIES 50
 
 BOOST_AUTO_TEST_CASE(throughput) {
     char randomString[WRITESIZE + 10];
@@ -23,14 +24,15 @@ BOOST_AUTO_TEST_CASE(throughput) {
     for (int t = 0; t < TRIES; t++) {
         std::string fileName = "testThroughput.test";
         fileName += std::to_string(std::rand());
-        clock_t t1 = clock();
+        auto begin = std::chrono::high_resolution_clock::now();
         std::ofstream os(fileName);
         for (int i = 0; i < TPTWRITES; i++) {
             os.write(randomString, WRITESIZE);
         }
         os.rdbuf()->pubsync();
         os.close();
-        std::cout << clock() - t1 << ",";
+        auto end = std::chrono::high_resolution_clock::now();
+        std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count() << ",";
         usleep(1000);
         std::ifstream is(fileName);
         is.seekg(0, is.end);
