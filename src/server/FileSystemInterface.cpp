@@ -148,7 +148,7 @@ int64_t FileSystemInterface::writeAll(const std::string &path, const std::vector
     if (!os.good()) {
         throw -1;
     }
-    int64_t ret;
+    int64_t ret = 0;
     for (WriteCacheServerEntry entry : writeVector) {
         os.seekp(entry.offset, std::ios::beg);
         os.write(&(entry.buf)[0], entry.size);

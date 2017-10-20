@@ -38,7 +38,7 @@ int VFSClient::getattr(const char *path, struct stat *stbuf, struct fuse_file_in
   std::string tpath(path);
   std::cout << "in getattr " << tpath << std::endl;
   std::cout << "-------------Cache-Getattr-------------" << std::endl;
-  for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.getattr_state << " ---- " << pair.second.getattr_reply << std::endl;
+//  for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.getattr_state << " ---- " << pair.second.getattr_reply << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(tpath);
   VNodeClient vnode;
   // Cache Consistence here
@@ -74,7 +74,7 @@ int VFSClient::nfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, 
   std::string tpath(path);
   std::cout << "in readdir " << tpath << std::endl;
   std::cout << "-------------Cache-Readdir-------------" << std::endl;
-  for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.readdir_state << " ---- " << pair.second.readdir_reply << std::endl;
+//  for (auto pair: cache.path2vnode) std::cout << pair.first << " ---- " << pair.second.readdir_state << " ---- " << pair.second.readdir_reply << std::endl;
   VNodeClient* cache_vnode = cache.checkPath(path);
   std::cout << "checking path " << path << std::endl;
   VNodeClient vnode;

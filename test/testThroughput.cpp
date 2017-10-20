@@ -9,14 +9,15 @@
 #include <iostream>
 
 #define CLIENT_DIR "/tmp/client"
-#define WRITESIZE 10240
+#define WRITESIZE 1024000
 #define TPTWRITES 1024
 #define TRIES 10
 
 BOOST_AUTO_TEST_CASE(throughput) {
-    std::ifstream ris("/dev/urandom");
     char randomString[WRITESIZE + 10];
-    ris.read(randomString, WRITESIZE);
+    for (uint64_t c = 0; c < WRITESIZE; c++) {
+        randomString[c] = c%255+1;
+    }
     chdir(CLIENT_DIR);
     std::srand(clock());
     for (int t = 0; t < TRIES; t++) {
@@ -27,15 +28,17 @@ BOOST_AUTO_TEST_CASE(throughput) {
         for (int i = 0; i < TPTWRITES; i++) {
             os.write(randomString, WRITESIZE);
         }
+        os.rdbuf()->pubsync();
         os.close();
         std::cout << clock() - t1 << ",";
         usleep(1000);
-        std::ifstream is(fileName, std::ios::ate);
+        std::ifstream is(fileName);
+        is.seekg(0, is.end);
         long int size = is.tellg();
         std::cout << size << std::endl;
         //    BOOST_CHECK_EQUAL(size, TPTWRITES*WRITESIZE);
         is.close();
-//        unlink(fileName.c_str());
-        usleep(500000);
+        unlink(fileName.c_str());
+        usleep(50000);
     }
 }
